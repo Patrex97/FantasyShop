@@ -4,6 +4,10 @@ class_name Customer
 
 @onready var interactive_texture: InteractiveTexture = $InteractiveTexture
 
+
+var can_start_dialog: bool = false
+
+
 func _ready() -> void:
 	interactive_texture.clicked.connect(_on_texture_clicked)
 	await walk_in()
@@ -18,6 +22,7 @@ func walk_in() -> void:
 	)
 	
 	await tween.finished
+	can_start_dialog = true
 
 
 func walk_out() -> void:
@@ -33,6 +38,9 @@ func walk_out() -> void:
 	
 	queue_free()
 
-
 func _on_texture_clicked() -> void:
+	if not can_start_dialog:
+		return
+	
 	DialogueManager.show_dialogue_balloon(load('res://Dialogues/buying.dialogue'), 'start')
+	can_start_dialog = false

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cguoffsyid1d7"]
+
+[ext_resource type="Script" uid="uid://bea1gh0gc47ui" path="res://Items/ItemData.gd" id="1_67cox"]
+[ext_resource type="Texture2D" uid="uid://csb7u8lyjwjyw" path="res://Assets/Placeholders/Iron_Sword.png" id="2_dua3y"]
+
+[resource]
+script = ExtResource("1_67cox")
+id = &"iron_sword"
+name = "Żelany miecz"
+description = "To jest zwykły żelazny miecz"
+texture = ExtResource("2_dua3y")
+base_value = 20
+metadata/_custom_type_script = "uid://bea1gh0gc47ui"

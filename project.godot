@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-DialogManager="*uid://bo4tso0buhym0"
 DialogueManager="*uid://c3rodes2l3gxb"
+GameManager="*uid://cmhoehm4acy57"
 
 [dialogue_manager]
 

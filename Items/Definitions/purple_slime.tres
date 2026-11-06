@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://c6jdp7m27qc07"]
+
+[ext_resource type="Script" uid="uid://bea1gh0gc47ui" path="res://Items/ItemData.gd" id="1_up83i"]
+[ext_resource type="Texture2D" uid="uid://7qn3vglf6aje" path="res://Assets/Placeholders/Blob.png" id="2_bqxvm"]
+
+[resource]
+script = ExtResource("1_up83i")
+id = &"purple_slime"
+name = "Fioletowy szlam"
+description = "Ten fioletowy szlam ma magiczne włąściwości."
+texture = ExtResource("2_bqxvm")
+base_value = 60
+metadata/_custom_type_script = "uid://bea1gh0gc47ui"

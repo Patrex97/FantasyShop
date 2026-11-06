@@ -3,9 +3,16 @@ class_name CustomersManager
 
 const CUSTOMER = preload("uid://cf3kwn74fxd4e")
 
-var customers_left: int = 3
+
+@onready var end_day_button: Button = $"../EndDayButton"
+
+
+@export var customers_left: int = 1
+@export var UI_scene: UI
+
 
 func _ready() -> void:
+	GameManager.day_started.connect(_on_day_started)
 	_start_customer_visit()
 
 func end_customer_visit() -> void:
@@ -20,6 +27,8 @@ func _start_customer_visit() -> void:
 	new_customer.global_position = Vector2(-200, 65)
 	
 	add_child(new_customer)
+	
+	UI_scene.update_customers_label(customers_left)
 
 
 func _finish_customer_visit() -> void:
@@ -29,3 +38,10 @@ func _finish_customer_visit() -> void:
 	
 	if customers_left > 0:
 		_start_customer_visit()
+	else:
+		end_day_button.show()
+
+func _on_day_started(customers_count: int, _current_day: int) -> void:
+	customers_left = customers_count
+	
+	_start_customer_visit()

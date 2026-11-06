@@ -37,13 +37,11 @@ func _has_point(point: Vector2) -> bool:
 
 
 func _on_mouse_entered() -> void:
-	print('Entered')
 	if material is ShaderMaterial:
 		material.set_shader_parameter("show_outline", true)
 
 
 func _on_mouse_exited() -> void:
-	print('Exited')
 	if material is ShaderMaterial:
 		material.set_shader_parameter("show_outline", false)
 

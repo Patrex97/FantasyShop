@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cdlyibgj4omcj"]
 
+[ext_resource type="Script" uid="uid://dtrytddpxfmx6" path="res://UI/Ui.gd" id="1_c10ag"]
 [ext_resource type="Texture2D" uid="uid://b5cwcbkfi6joh" path="res://Assets/Coin.png" id="1_vmxoy"]
 
 [node name="UI" type="MarginContainer" unique_id=663916986]
@@ -13,6 +14,7 @@ theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
+script = ExtResource("1_c10ag")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=559131339]
 layout_mode = 2
@@ -36,3 +38,19 @@ custom_maximum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("1_vmxoy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1475238198]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DayLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1426693451]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Dzień 1"
+
+[node name="CustomersLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=5642792]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Zostało klientów: 3"
