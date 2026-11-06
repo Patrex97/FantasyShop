@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://od3jb0o7uc68"
+path="res://.godot/imported/buying.dialogue-80fe7a3ea9cd74dab31e5c22fff0a935.tres"
+
+[deps]
+
+source_file="res://Dialogues/buying.dialogue"
+dest_files=["res://.godot/imported/buying.dialogue-80fe7a3ea9cd74dab31e5c22fff0a935.tres"]
+
+[params]
+
+defaults=true

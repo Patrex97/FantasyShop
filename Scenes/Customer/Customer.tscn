@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cf3kwn74fxd4e"]
 
+[ext_resource type="Script" uid="uid://dg6hkn0mhgk1" path="res://Scenes/Customer/Customer.gd" id="1_7hs7e"]
 [ext_resource type="Texture2D" uid="uid://1m1jvi3jd733" path="res://Assets/Placeholders/Customer_1_Knight.png" id="1_s5hrx"]
+[ext_resource type="Script" uid="uid://cxge1wx70prau" path="res://addons/dialogue_manager/nodes/marker/dialogue_marker_2d.gd" id="3_owc70"]
 
 [node name="Customer" type="Control" unique_id=1339883334]
 custom_minimum_size = Vector2(300, 300)
@@ -8,6 +10,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 300.0
 offset_bottom = 300.0
+script = ExtResource("1_7hs7e")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1008015916]
 layout_mode = 1
@@ -18,3 +21,9 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_s5hrx")
 expand_mode = 3
+
+[node name="DialogueMarker2D" type="Marker2D" parent="." unique_id=487268305]
+position = Vector2(224, 134)
+script = ExtResource("3_owc70")
+character_name = "Customer"
+metadata/_custom_type_script = "uid://cxge1wx70prau"
