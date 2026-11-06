@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://dcy3il31o5c31" path="res://Assets/Placeholders/Background.png" id="1_qtv3y"]
 [ext_resource type="Script" uid="uid://bmeb3n5i7m1pk" path="res://Scenes/Shop/Shop.gd" id="1_w8s0t"]
 [ext_resource type="Texture2D" uid="uid://bwuik52xif8fy" path="res://Assets/Placeholders/Shop_Front.png" id="2_cmk6n"]
-[ext_resource type="PackedScene" uid="uid://cf3kwn74fxd4e" path="res://Scenes/Customer/Customer.tscn" id="2_i3fi7"]
 [ext_resource type="Script" uid="uid://j0gxdtp6hm1r" path="res://Scenes/Shop/CustomersManager.gd" id="4_0wlc8"]
 [ext_resource type="PackedScene" uid="uid://f36ovkjjshuc" path="res://Scenes/Item/Item.tscn" id="4_i3fi7"]
 [ext_resource type="Script" uid="uid://cd3222nx3y3k5" path="res://addons/dialogue_manager/nodes/context/dialogue_state_context.gd" id="8_d2lwj"]
@@ -35,12 +34,6 @@ expand_mode = 2
 [node name="CustomersManager" type="Node2D" parent="." unique_id=146152311]
 script = ExtResource("4_0wlc8")
 
-[node name="Customer" parent="CustomersManager" unique_id=1339883334 instance=ExtResource("2_i3fi7")]
-offset_left = 330.0
-offset_top = 55.0
-offset_right = 630.0
-offset_bottom = 355.0
-
 [node name="ShopTR" type="TextureRect" parent="." unique_id=489623776]
 layout_mode = 1
 anchors_preset = 15
@@ -48,6 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("2_cmk6n")
 expand_mode = 2
 

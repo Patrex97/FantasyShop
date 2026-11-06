@@ -1,29 +1,38 @@
 extends Control
+class_name Customer
 
-@onready var dialog_anchor: Marker2D = $DialogAnchor
 
-var DIALOGS = [
-	{
-		"type": "Text",
-		"speaker": "customer",
-		"value": "Witaj. Szukam dobrego miecza."
-	}, 
-	{ 
-		"type": "Action",
-		"anchor": "player",
-		"options": [
-			{
-				"key": "offer",
-				"label": "Mam dla ciebie miecz",
-			},
-			{
-				"key": "decline",
-				"label": "Niestety nie mam dla ciebie miecza"
-			}
-		],
-	}
-]
+@onready var interactive_texture: InteractiveTexture = $InteractiveTexture
 
 func _ready() -> void:
-	await get_tree().create_timer(2).timeout
-	DialogueManager.show_dialogue_balloon(load("res://Dialogues/buying.dialogue"), "start")
+	interactive_texture.clicked.connect(_on_texture_clicked)
+	await walk_in()
+
+func walk_in() -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(
+		self,
+		'position',
+		position + Vector2(500, 0),
+		3.0
+	)
+	
+	await tween.finished
+
+
+func walk_out() -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(
+		self,
+		'position',
+		position + Vector2(500, 0),
+		3.0
+	)
+	
+	await tween.finished
+	
+	queue_free()
+
+
+func _on_texture_clicked() -> void:
+	DialogueManager.show_dialogue_balloon(load('res://Dialogues/buying.dialogue'), 'start')
