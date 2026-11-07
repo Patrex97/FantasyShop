@@ -12,3 +12,6 @@ script = ExtResource("1_dtts4")
 
 [node name="InteractiveTexture" parent="." unique_id=1312063393 instance=ExtResource("2_dtts4")]
 layout_mode = 1
+
+[connection signal="mouse_entered" from="InteractiveTexture" to="." method="_on_interactive_texture_mouse_entered"]
+[connection signal="mouse_exited" from="InteractiveTexture" to="." method="_on_interactive_texture_mouse_exited"]

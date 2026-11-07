@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://lmladihd01m5"]
+
+[ext_resource type="Script" uid="uid://ch8l567jknprj" path="res://PopoverManager.gd" id="1_cvgw2"]
+
+[node name="PopoverManager" type="CanvasLayer" unique_id=1634961796]
+script = ExtResource("1_cvgw2")

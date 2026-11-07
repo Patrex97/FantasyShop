@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://bescp2gu4y8fj"]
+
+[ext_resource type="Texture2D" uid="uid://83mp3k4r0tm3" path="res://Assets/dialog-cloud.png" id="1_e3ycu"]
+[ext_resource type="Theme" uid="uid://b162ctlgmmeru" path="res://Themes/default.tres" id="2_pimh1"]
+
+[sub_resource type="GDScript" id="GDScript_htyku"]
+script/source = "extends Control
+
+@onready var name_label: Label = %NameLabel
+@onready var description_label: Label = %DescriptionLabel
+
+var item_data: ItemData = null
+
+func _ready() -> void:
+	name_label.text = item_data.name
+	description_label.text = item_data.description
+
+
+func setup(data: ItemData) -> void:
+	item_data = data
+"
+
+[node name="ItemPopover" type="Control" unique_id=1668170646]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = SubResource("GDScript_htyku")
+
+[node name="PanelContainer" type="MarginContainer" parent="." unique_id=1769429659]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 50.0
+mouse_filter = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PanelContainer" unique_id=1195873953]
+layout_mode = 2
+texture = ExtResource("1_e3ycu")
+region_rect = Rect2(16, 27, 96, 74)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1392335412]
+layout_mode = 2
+theme = ExtResource("2_pimh1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=388321308]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1480719120]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1143566732]
+unique_name_in_owner = true
+layout_mode = 2

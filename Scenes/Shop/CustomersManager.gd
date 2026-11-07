@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 class_name CustomersManager
 
 const CUSTOMER = preload("uid://cf3kwn74fxd4e")

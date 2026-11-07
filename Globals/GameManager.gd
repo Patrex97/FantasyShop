@@ -20,3 +20,9 @@ func start_day() -> void:
 	current_day += 1
 	var new_customers: int = randi_range(1, 3)
 	emit_day_started(new_customers)
+
+
+#const COIN = preload("uid://b5cwcbkfi6joh")
+#
+#func _ready() -> void:
+	#Input.set_custom_mouse_cursor(COIN)

@@ -12,10 +12,10 @@ region_rect = Rect2(16, 27, 96, 74)
 
 [resource]
 Button/styles/normal = SubResource("StyleBoxTexture_b8he7")
-MarginContainer/constants/margin_bottom = 0
-MarginContainer/constants/margin_left = 0
-MarginContainer/constants/margin_right = 0
-MarginContainer/constants/margin_top = 0
+MarginContainer/constants/margin_bottom = 12
+MarginContainer/constants/margin_left = 12
+MarginContainer/constants/margin_right = 12
+MarginContainer/constants/margin_top = 12
 RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
 RichTextLabel/font_sizes/bold_font_size = 16
 RichTextLabel/font_sizes/normal_font_size = 12
