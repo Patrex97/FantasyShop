@@ -6,8 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://bwuik52xif8fy" path="res://Assets/Placeholders/Shop_Front.png" id="2_cmk6n"]
 [ext_resource type="Script" uid="uid://j0gxdtp6hm1r" path="res://Scenes/Shop/CustomersManager.gd" id="4_0wlc8"]
 [ext_resource type="PackedScene" uid="uid://f36ovkjjshuc" path="res://Scenes/Item/Item.tscn" id="4_i3fi7"]
+[ext_resource type="Resource" uid="uid://cguoffsyid1d7" path="res://Items/Definitions/iron_sword.tres" id="7_2xpuo"]
 [ext_resource type="Theme" uid="uid://b162ctlgmmeru" path="res://Themes/default.tres" id="7_d2lwj"]
+[ext_resource type="Resource" uid="uid://cb6gsvooxqqgq" path="res://Items/Definitions/poison_ball.tres" id="8_6bbxv"]
 [ext_resource type="Script" uid="uid://cd3222nx3y3k5" path="res://addons/dialogue_manager/nodes/context/dialogue_state_context.gd" id="8_d2lwj"]
+[ext_resource type="Resource" uid="uid://c6jdp7m27qc07" path="res://Items/Definitions/purple_slime.tres" id="9_61vnm"]
 
 [node name="Shop" type="Control" unique_id=1434943476]
 layout_mode = 3
@@ -29,6 +32,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_qtv3y")
 expand_mode = 2
 
@@ -51,6 +55,7 @@ expand_mode = 2
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 1
 
 [node name="Item" parent="Items" unique_id=232487863 instance=ExtResource("4_i3fi7")]
 layout_mode = 0
@@ -58,6 +63,7 @@ offset_left = 135.0
 offset_top = 283.0
 offset_right = 335.0
 offset_bottom = 483.0
+item_data = ExtResource("7_2xpuo")
 
 [node name="Item2" parent="Items" unique_id=336968968 instance=ExtResource("4_i3fi7")]
 layout_mode = 0
@@ -65,6 +71,7 @@ offset_left = 357.0
 offset_top = 284.0
 offset_right = 557.0
 offset_bottom = 484.0
+item_data = ExtResource("8_6bbxv")
 
 [node name="Item3" parent="Items" unique_id=701097627 instance=ExtResource("4_i3fi7")]
 layout_mode = 0
@@ -72,6 +79,7 @@ offset_left = 646.0
 offset_top = 292.0
 offset_right = 846.0
 offset_bottom = 492.0
+item_data = ExtResource("9_61vnm")
 
 [node name="EndDayButton" type="Button" parent="." unique_id=541469721]
 visible = false

@@ -38,7 +38,7 @@ func walk_out() -> void:
 	
 	queue_free()
 
-func _on_texture_clicked() -> void:
+func _on_texture_clicked(_clicked_pos: Vector2) -> void:
 	if not can_start_dialog:
 		return
 	

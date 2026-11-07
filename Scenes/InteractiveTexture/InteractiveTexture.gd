@@ -1,7 +1,8 @@
 extends TextureRect
 class_name InteractiveTexture
 
-signal clicked
+signal clicked(click_pos: Vector2)
+signal released
 
 var alpha_threshold: float = 0.1
 
@@ -14,6 +15,12 @@ func _ready() -> void:
 	if texture:
 		image = texture.get_image()
 
+
+func update_texture(new_texture: Texture2D) -> void:
+	texture = new_texture
+	
+	if texture:
+		image = texture.get_image()
 
 func _has_point(point: Vector2) -> bool:
 	if image == null:
@@ -48,5 +55,8 @@ func _on_mouse_exited() -> void:
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			clicked.emit()
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				clicked.emit(event.position)
+			elif event.is_released():
+				released.emit()

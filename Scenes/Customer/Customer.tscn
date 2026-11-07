@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://cxge1wx70prau" path="res://addons/dialogue_manager/nodes/marker/dialogue_marker_2d.gd" id="3_owc70"]
 
 [node name="Customer" type="Control" unique_id=1339883334]
-custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 300.00012
