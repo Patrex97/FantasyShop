@@ -1,17 +1,12 @@
 extends TextureRect
 class_name InteractiveTexture
 
-signal clicked(click_pos: Vector2)
-signal released
-
 var alpha_threshold: float = 0.1
 
 var image: Image
 
 
 func _ready() -> void:
-	mouse_filter = Control.MOUSE_FILTER_STOP
-
 	if texture:
 		image = texture.get_image()
 
@@ -22,7 +17,7 @@ func update_texture(new_texture: Texture2D) -> void:
 	if texture:
 		image = texture.get_image()
 
-func _has_point(point: Vector2) -> bool:
+func is_pixel_interactive(point: Vector2) -> bool:
 	if image == null:
 		return false
 
@@ -42,7 +37,6 @@ func _has_point(point: Vector2) -> bool:
 
 	return image.get_pixelv(pixel_pos).a > alpha_threshold
 
-
 func _on_mouse_entered() -> void:
 	if material is ShaderMaterial:
 		material.set_shader_parameter("show_outline", true)
@@ -51,12 +45,3 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	if material is ShaderMaterial:
 		material.set_shader_parameter("show_outline", false)
-
-
-func _on_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				clicked.emit(event.position)
-			elif event.is_released():
-				released.emit()

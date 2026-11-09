@@ -22,3 +22,5 @@ position = Vector2(218, 123)
 script = ExtResource("3_owc70")
 character_name = "Customer"
 metadata/_custom_type_script = "uid://cxge1wx70prau"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

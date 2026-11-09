@@ -9,8 +9,13 @@ var can_start_dialog: bool = false
 
 
 func _ready() -> void:
-	interactive_texture.clicked.connect(_on_texture_clicked)
 	await walk_in()
+
+func _has_point(point: Vector2) -> bool:
+	var global_point: Vector2 = get_global_transform() * point
+	var local_point: Vector2 = interactive_texture.get_global_transform().affine_inverse() * global_point
+
+	return interactive_texture.is_pixel_interactive(local_point)
 
 func walk_in() -> void:
 	var tween: Tween = create_tween()
@@ -38,9 +43,16 @@ func walk_out() -> void:
 	
 	queue_free()
 
-func _on_texture_clicked(_clicked_pos: Vector2) -> void:
+func _on_clicked(_clicked_pos: Vector2) -> void:
 	if not can_start_dialog:
 		return
 	
 	DialogueManager.show_dialogue_balloon(load('res://Dialogues/buying.dialogue'), 'start')
 	can_start_dialog = false
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				_on_clicked(event.position)
