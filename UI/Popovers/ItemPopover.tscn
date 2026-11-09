@@ -25,6 +25,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 script = SubResource("GDScript_htyku")
 
 [node name="PanelContainer" type="MarginContainer" parent="." unique_id=1769429659]

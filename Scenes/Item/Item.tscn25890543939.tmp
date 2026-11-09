@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://f36ovkjjshuc"]
+
+[ext_resource type="Script" uid="uid://buaog7jx7wq65" path="res://Scenes/Item/Item.gd" id="1_dtts4"]
+[ext_resource type="PackedScene" uid="uid://dnnkyc5sc4w0c" path="res://Scenes/InteractiveTexture/InteractiveTexture.tscn" id="2_dtts4"]
+
+[node name="Item" type="Control" unique_id=232487863]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_dtts4")
+
+[node name="InteractiveTexture" parent="." unique_id=1312063393 instance=ExtResource("2_dtts4")]
+layout_mode = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
