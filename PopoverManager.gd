@@ -15,11 +15,12 @@ var current_mouse_position: Vector2 = Vector2.ZERO
 
 
 func _input(event: InputEvent) -> void:
+	current_mouse_position = event.position
+	
 	if not current_popover:
 		return
-
+	
 	if event is InputEventMouseMotion:
-		current_mouse_position = event.position
 		current_popover.global_position = (
 			event.position + Vector2(15, 15)
 		)
@@ -30,6 +31,9 @@ func show_popover(popover_type: PopoverType, data: Variant) -> void:
 	current_popover = POPOVERS[popover_type].instantiate()
 	
 	current_popover.setup(data)
+	current_popover.global_position = (
+		current_mouse_position + Vector2(15, 15)
+	)
 	
 	add_child(current_popover)
 

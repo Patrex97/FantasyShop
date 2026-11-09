@@ -42,6 +42,7 @@ func _gui_input(event: InputEvent) -> void:
 func _start_drag(clicked_pos: Vector2) -> void:
 	is_dragging = true
 	mouse_click_offset = clicked_pos
+	move_to_front()
 	
 	PopoverManager.hide_popover()
 

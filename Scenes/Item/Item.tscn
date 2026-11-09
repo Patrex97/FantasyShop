@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dnnkyc5sc4w0c" path="res://Scenes/InteractiveTexture/InteractiveTexture.tscn" id="2_dtts4"]
 
 [node name="Item" type="Control" unique_id=232487863]
+z_as_relative = false
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 3
 anchors_preset = 0
