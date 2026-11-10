@@ -15,15 +15,18 @@ var current_mouse_position: Vector2 = Vector2.ZERO
 
 
 func _input(event: InputEvent) -> void:
+	if event is not InputEventMouseMotion:
+		return
+	
 	current_mouse_position = event.position
 	
 	if not current_popover:
 		return
 	
-	if event is InputEventMouseMotion:
-		current_popover.global_position = (
-			event.position + Vector2(15, 15)
-		)
+	
+	current_popover.global_position = (
+		event.position + Vector2(15, 15)
+	)
 
 func show_popover(popover_type: PopoverType, data: Variant) -> void:
 	hide_popover()

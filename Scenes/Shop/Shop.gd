@@ -21,7 +21,7 @@ func _ready() -> void:
 		var random_item_data: ItemData = item_data_list.pick_random()
 		
 		new_item.setup(random_item_data)
-		new_item.global_position = Vector2(100, 100) * (i + 1)
+		new_item.global_position = Vector2(200 + 200 * i, 390)
 		
 		items.add_child(new_item)
 

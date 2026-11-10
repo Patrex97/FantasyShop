@@ -16,6 +16,7 @@ func update_texture(new_texture: Texture2D) -> void:
 	
 	if texture:
 		image = texture.get_image()
+		size = texture.get_size()
 
 func is_pixel_interactive(point: Vector2) -> bool:
 	if image == null:

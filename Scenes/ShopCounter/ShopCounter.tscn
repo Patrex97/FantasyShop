@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://crem02kcm5p87"]
+
+[ext_resource type="Texture2D" uid="uid://dkcsqorqpaen1" path="res://Assets/Placeholders/pergamin.png" id="1_g36v6"]
+[ext_resource type="Script" uid="uid://c6hwgqrq66k6w" path="res://Scenes/ShopCounter/ShopCounter.gd" id="1_v1lln"]
+
+[node name="ShopCounter" type="MarginContainer" unique_id=907458734 groups=["ShopCounter"]]
+offset_right = 900.0
+offset_bottom = 160.0
+script = ExtResource("1_v1lln")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=250037342]
+custom_maximum_size = Vector2(900, 160)
+layout_mode = 2
+texture = ExtResource("1_g36v6")
+
+[node name="Label" type="Label" parent="." unique_id=269696018]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "0"
