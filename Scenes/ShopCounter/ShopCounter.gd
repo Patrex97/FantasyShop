@@ -3,12 +3,14 @@ class_name ShopCounter
 
 @onready var counter_mc: MarginContainer = %CounterMC
 
+signal counter_updated(items: Array[Item])
+
 
 var items: Array[Item]
 
+#region Drag&Drop
 func is_point_inside(global_point: Vector2) -> bool:
 	return counter_mc.get_global_rect().has_point(global_point)
-
 
 func add_to_counter(new_item: Item) -> void:
 	if items.has(new_item):
@@ -23,14 +25,15 @@ func remove_from_counter(item_to_remove: Item) -> void:
 	
 	items.erase(item_to_remove)
 	_update_counter_list()
+#endregion Drag&Drop
 
 #region CounterList
 @onready var counter_list: PanelContainer = %CounterList
 @onready var items_list: VBoxContainer = $CounterList/VBoxContainer/ItemsList
 
-
-
 func _update_counter_list() -> void:
+	counter_updated.emit(items)
+	
 	if not items.size():
 		counter_list.hide()
 		return

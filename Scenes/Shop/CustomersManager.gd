@@ -3,16 +3,18 @@ class_name CustomersManager
 
 const CUSTOMER = preload("uid://cf3kwn74fxd4e")
 
+signal customer_enter(data: CustomerData)
+
 @onready var end_day_button: Button = $"../EndDayButton"
 
 @export var customers_data: Array[CustomerData]
-@export var customers_left: int = 1
+@export var customers_left: int = 0
 @export var UI_scene: UI
 
 
 func _ready() -> void:
 	GameManager.day_started.connect(_on_day_started)
-	_start_customer_visit()
+
 
 func end_customer_visit() -> void:
 	_finish_customer_visit()
@@ -24,6 +26,7 @@ func _start_customer_visit() -> void:
 	var new_customer_data: CustomerData = customers_data.pick_random()
 	if not new_customer_data:
 		return
+	customer_enter.emit(new_customer_data)
 	
 	var new_customer: Customer = CUSTOMER.instantiate()
 	new_customer.setup(new_customer_data)

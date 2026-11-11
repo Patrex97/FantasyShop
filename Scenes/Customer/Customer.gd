@@ -10,7 +10,6 @@ var customer_data: CustomerData
 
 
 func _ready() -> void:
-	print(customer_data)
 	interactive_texture.update_texture(customer_data.texture)
 	await walk_in()
 
