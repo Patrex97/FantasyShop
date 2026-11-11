@@ -1,21 +1,18 @@
 [gd_scene format=3 uid="uid://cf3kwn74fxd4e"]
 
 [ext_resource type="Script" uid="uid://dg6hkn0mhgk1" path="res://Scenes/Customer/Customer.gd" id="1_7hs7e"]
-[ext_resource type="Texture2D" uid="uid://1m1jvi3jd733" path="res://Assets/Placeholders/Customer_1_Knight.png" id="1_s5hrx"]
 [ext_resource type="PackedScene" uid="uid://dnnkyc5sc4w0c" path="res://Scenes/InteractiveTexture/InteractiveTexture.tscn" id="2_owc70"]
+[ext_resource type="Texture2D" uid="uid://bgqhpg4bd303o" path="res://Assets/FantasyShop - Customer.png" id="3_7ovr6"]
 [ext_resource type="Script" uid="uid://cxge1wx70prau" path="res://addons/dialogue_manager/nodes/marker/dialogue_marker_2d.gd" id="3_owc70"]
 
-[node name="Customer" type="Control" unique_id=1339883334]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 300.00012
+[node name="Customer" type="MarginContainer" unique_id=1154611856]
+offset_right = 300.0
 offset_bottom = 300.0
-mouse_filter = 1
 script = ExtResource("1_7hs7e")
 
 [node name="InteractiveTexture" parent="." unique_id=1312063393 instance=ExtResource("2_owc70")]
-layout_mode = 1
-texture = ExtResource("1_s5hrx")
+layout_mode = 2
+texture = ExtResource("3_7ovr6")
 
 [node name="DialogueMarker2D" type="Marker2D" parent="." unique_id=487268305]
 position = Vector2(218, 123)

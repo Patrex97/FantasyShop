@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csb7u8lyjwjyw"
-path="res://.godot/imported/Iron_Sword.png-2e01704519861cec98b86eb332db203a.ctex"
+uid="uid://bgqhpg4bd303o"
+path="res://.godot/imported/FantasyShop - Customer.png-010a4a40cda1ace4ff9e596895a0e176.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Placeholders/Iron_Sword.png"
-dest_files=["res://.godot/imported/Iron_Sword.png-2e01704519861cec98b86eb332db203a.ctex"]
+source_file="res://Assets/FantasyShop - Customer.png"
+dest_files=["res://.godot/imported/FantasyShop - Customer.png-010a4a40cda1ace4ff9e596895a0e176.ctex"]
 
 [params]
 

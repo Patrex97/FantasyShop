@@ -9,6 +9,7 @@ var image: Image
 func _ready() -> void:
 	if texture:
 		image = texture.get_image()
+		size = texture.get_size()
 
 
 func update_texture(new_texture: Texture2D) -> void:

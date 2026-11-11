@@ -68,6 +68,9 @@ func _drop(mouse_position: Vector2) -> void:
 
 #region Popover
 func _show_popover() -> void:
+	if is_dragging:
+		return
+	
 	PopoverManager.show_popover(PopoverManager.PopoverType.Item, item_data)
 
 
