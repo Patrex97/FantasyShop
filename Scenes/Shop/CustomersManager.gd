@@ -3,10 +3,9 @@ class_name CustomersManager
 
 const CUSTOMER = preload("uid://cf3kwn74fxd4e")
 
-
 @onready var end_day_button: Button = $"../EndDayButton"
 
-
+@export var customers_data: Array[CustomerData]
 @export var customers_left: int = 1
 @export var UI_scene: UI
 
@@ -22,7 +21,12 @@ func end_customer_visit() -> void:
 func _start_customer_visit() -> void:
 	customers_left -= 1
 	
+	var new_customer_data: CustomerData = customers_data.pick_random()
+	if not new_customer_data:
+		return
+	
 	var new_customer: Customer = CUSTOMER.instantiate()
+	new_customer.setup(new_customer_data)
 	
 	new_customer.global_position = Vector2(-200, 65)
 	

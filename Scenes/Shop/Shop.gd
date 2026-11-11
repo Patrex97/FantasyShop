@@ -7,7 +7,7 @@ func _on_end_day_button_pressed() -> void:
 	GameManager.end_day()
 	end_day_button.hide()
 
-#region TEST
+#region Debug
 const ITEM = preload("uid://f36ovkjjshuc")
 
 @export var item_data_list: Array[ItemData] = []
@@ -24,5 +24,4 @@ func _ready() -> void:
 		new_item.global_position = Vector2(200 + 200 * i, 390)
 		
 		items.add_child(new_item)
-
-#endregion
+#endregion Debug
