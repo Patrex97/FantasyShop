@@ -1,9 +1,10 @@
 extends Control
 class_name Customer
 
-
 @onready var interactive_texture: InteractiveTexture = $InteractiveTexture
+@onready var dialogue_marker_2d: DialogueMarker2D = $DialogueMarker2D
 
+var dialogue_resource = load('res://Dialogues/buying.dialogue')
 
 var can_start_dialog: bool = false
 var customer_data: CustomerData
@@ -11,6 +12,7 @@ var customer_data: CustomerData
 
 func _ready() -> void:
 	interactive_texture.update_texture(customer_data.texture)
+	dialogue_marker_2d.character_name = customer_data.name
 	await walk_in()
 
 
@@ -56,7 +58,7 @@ func _on_clicked(_clicked_pos: Vector2) -> void:
 	if not can_start_dialog:
 		return
 	
-	DialogueManager.show_dialogue_balloon(load('res://Dialogues/buying.dialogue'), 'start')
+	start_conversation('start')
 	can_start_dialog = false
 
 
@@ -65,3 +67,13 @@ func _on_gui_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				_on_clicked(event.position)
+
+
+func start_conversation(dialogue_name: String) -> void:
+	DialogueManager.show_dialogue_balloon(dialogue_resource, dialogue_name, [{
+		"customer_name": customer_data.name
+	}])
+
+
+func approve_item() -> void:
+	start_conversation('item_approved')

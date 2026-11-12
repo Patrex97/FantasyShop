@@ -1,8 +1,14 @@
 ~ start
-Customer: Cześć. Szukam żelaznego miecz. Masz coś na stanie?
-- Mam żelazny miecz za 20 złota.
-	Customer: Kurcze zapomniałem sakiewki. Wrócę później.
-	$> Customers.end_customer_visit()
-- Zakończ rozmowe
-	$> Customers.end_customer_visit()
+{{customer_name}}: Cześć. Szukam żelaznego miecz. Masz coś na stanie?
+=> END
+
+~ item_approved
+
+{{customer_name}}: O, właśnie o ten przedmiot mi chodziło!
+=> END
+
+~ item_bought
+
+{{customer_name}}: Nareszcie mam miecz. Dziękuję!
+$> Customers.end_customer_visit()
 => END

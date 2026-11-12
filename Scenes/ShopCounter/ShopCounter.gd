@@ -3,8 +3,6 @@ class_name ShopCounter
 
 @onready var counter_mc: MarginContainer = %CounterMC
 
-signal counter_updated(items: Array[Item])
-
 
 var items: Array[Item]
 
@@ -30,6 +28,8 @@ func remove_from_counter(item_to_remove: Item) -> void:
 #region CounterList
 @onready var counter_list: PanelContainer = %CounterList
 @onready var items_list: VBoxContainer = $CounterList/VBoxContainer/ItemsList
+
+signal counter_updated(items: Array[Item])
 
 func _update_counter_list() -> void:
 	counter_updated.emit(items)
@@ -60,4 +60,26 @@ func _update_counter_list() -> void:
 		items_list.add_child(row)
 	
 	counter_list.show()
+
+
+func remove_items(items_to_remove: Array[Item]) -> void:
+	for item in items_to_remove:
+		remove_from_counter(item)
+		item.queue_free()
 #endregion
+
+#region Buttons
+@onready var sell_button: Button = %SellButton
+
+signal sell
+
+func toggle_sell_button(show: bool) -> void:
+	if show:
+		sell_button.show()
+	else:
+		sell_button.hide()
+
+
+func _on_sell_button_pressed() -> void:
+	sell.emit()
+#endregion Buttons

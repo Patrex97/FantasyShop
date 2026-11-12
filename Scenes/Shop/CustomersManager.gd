@@ -11,11 +11,14 @@ signal customer_enter(data: CustomerData)
 @export var customers_left: int = 0
 @export var UI_scene: UI
 
+var current_customer: Customer
 
 func _ready() -> void:
 	GameManager.day_started.connect(_on_day_started)
 
 
+#region Visit
+#For Dialogue
 func end_customer_visit() -> void:
 	_finish_customer_visit()
 
@@ -35,6 +38,8 @@ func _start_customer_visit() -> void:
 	
 	add_child(new_customer)
 	
+	current_customer = new_customer
+	
 	UI_scene.update_customers_label(customers_left)
 
 
@@ -47,6 +52,15 @@ func _finish_customer_visit() -> void:
 		_start_customer_visit()
 	else:
 		end_day_button.show()
+	
+	current_customer = null
+#endregion Visit
+
+#region Interactions
+func trigger_dialogue(dialogue_name: String) -> void:
+	current_customer.start_conversation(dialogue_name)
+
+#endregion Interactions
 
 func _on_day_started(customers_count: int, _current_day: int) -> void:
 	customers_left = customers_count

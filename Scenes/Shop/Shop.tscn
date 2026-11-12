@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://cdlyibgj4omcj" path="res://UI/Ui.tscn" id="1_o8wgc"]
 [ext_resource type="Texture2D" uid="uid://dcy3il31o5c31" path="res://Assets/Placeholders/Background.png" id="1_qtv3y"]
 [ext_resource type="Script" uid="uid://bmeb3n5i7m1pk" path="res://Scenes/Shop/Shop.gd" id="1_w8s0t"]
-[ext_resource type="Script" uid="uid://bea1gh0gc47ui" path="res://Items/ItemData.gd" id="2_6bbxv"]
 [ext_resource type="Texture2D" uid="uid://bwuik52xif8fy" path="res://Assets/Placeholders/Shop_Front.png" id="2_cmk6n"]
 [ext_resource type="Script" uid="uid://j0gxdtp6hm1r" path="res://Scenes/Shop/CustomersManager.gd" id="4_0wlc8"]
 [ext_resource type="Resource" uid="uid://cguoffsyid1d7" path="res://Items/Definitions/iron_sword.tres" id="7_2xpuo"]
@@ -11,6 +10,7 @@
 [ext_resource type="Script" uid="uid://cd3222nx3y3k5" path="res://addons/dialogue_manager/nodes/context/dialogue_state_context.gd" id="8_d2lwj"]
 [ext_resource type="Script" uid="uid://c4a71a0oh0bin" path="res://Custoemrs/CustomerData.gd" id="8_fawcw"]
 [ext_resource type="Resource" uid="uid://c6jdp7m27qc07" path="res://Items/Definitions/purple_gem.tres" id="9_61vnm"]
+[ext_resource type="PackedScene" uid="uid://f36ovkjjshuc" path="res://Scenes/Item/Item.tscn" id="9_fawcw"]
 [ext_resource type="Resource" uid="uid://cpujp1iidc4jo" path="res://Custoemrs/Definitions/peasant.tres" id="9_fqp3i"]
 [ext_resource type="PackedScene" uid="uid://lmladihd01m5" path="res://UI/Popovers/PopoverManager.tscn" id="12_6bbxv"]
 [ext_resource type="PackedScene" uid="uid://crem02kcm5p87" path="res://Scenes/ShopCounter/ShopCounter.tscn" id="13_61vnm"]
@@ -23,7 +23,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w8s0t")
-item_data_list = Array[ExtResource("2_6bbxv")]([ExtResource("7_2xpuo"), ExtResource("9_61vnm")])
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1042919860]
 
@@ -71,6 +70,22 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 1
+
+[node name="Item" parent="ItemsManager" unique_id=570390677 instance=ExtResource("9_fawcw")]
+layout_mode = 0
+offset_left = 171.0
+offset_top = 474.0
+offset_right = 171.0
+offset_bottom = 474.0
+item_data = ExtResource("7_2xpuo")
+
+[node name="Item2" parent="ItemsManager" unique_id=727198040 instance=ExtResource("9_fawcw")]
+layout_mode = 0
+offset_left = 385.0
+offset_top = 498.0
+offset_right = 385.0
+offset_bottom = 498.0
+item_data = ExtResource("9_61vnm")
 
 [node name="EndDayButton" type="Button" parent="." unique_id=541469721]
 layout_mode = 0

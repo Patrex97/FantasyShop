@@ -57,3 +57,11 @@ horizontal_alignment = 1
 [node name="ItemsList" type="VBoxContainer" parent="CounterList/VBoxContainer" unique_id=474850148]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="SellButton" type="Button" parent="CounterList/VBoxContainer" unique_id=1911224637]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Sprzedaj"
+
+[connection signal="pressed" from="CounterList/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
