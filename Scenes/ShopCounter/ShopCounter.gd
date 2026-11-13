@@ -73,8 +73,8 @@ func remove_items(items_to_remove: Array[Item]) -> void:
 
 signal sell
 
-func toggle_sell_button(show: bool) -> void:
-	if show:
+func toggle_sell_button(state: bool) -> void:
+	if state:
 		sell_button.show()
 	else:
 		sell_button.hide()

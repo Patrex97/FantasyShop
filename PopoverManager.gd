@@ -35,9 +35,6 @@ func _update_popover_position() -> void:
 	if position.x + popover_size.x > viewport_size.x:
 		position.x = current_mouse_position.x - popover_size.x - POPOVER_OFFSET.x
 	
-	print(position.y + popover_size.y + POPOVER_OFFSET.y)
-	print(viewport_size.y)
-
 	# Brak miejsca na dole
 	if position.y + popover_size.y > viewport_size.y:
 		position.y = current_mouse_position.y - popover_size.y
