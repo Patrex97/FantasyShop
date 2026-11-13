@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bea1gh0gc47ui" path="res://Items/ItemData.gd" id="1_f4kbw"]
 [ext_resource type="Resource" uid="uid://cguoffsyid1d7" path="res://Items/Definitions/iron_sword.tres" id="2_5yhbc"]
-[ext_resource type="Script" uid="uid://c4a71a0oh0bin" path="res://Custoemrs/CustomerData.gd" id="3_5yhbc"]
+[ext_resource type="Script" uid="uid://c4a71a0oh0bin" path="res://Customers/CustomerData.gd" id="3_5yhbc"]
 [ext_resource type="Texture2D" uid="uid://bgqhpg4bd303o" path="res://Assets/FantasyShop - Customer.png" id="4_53slo"]
 
 [resource]

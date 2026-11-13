@@ -8,10 +8,10 @@
 [ext_resource type="Resource" uid="uid://cguoffsyid1d7" path="res://Items/Definitions/iron_sword.tres" id="7_2xpuo"]
 [ext_resource type="Theme" uid="uid://b162ctlgmmeru" path="res://Themes/default.tres" id="7_d2lwj"]
 [ext_resource type="Script" uid="uid://cd3222nx3y3k5" path="res://addons/dialogue_manager/nodes/context/dialogue_state_context.gd" id="8_d2lwj"]
-[ext_resource type="Script" uid="uid://c4a71a0oh0bin" path="res://Custoemrs/CustomerData.gd" id="8_fawcw"]
+[ext_resource type="Script" uid="uid://c4a71a0oh0bin" path="res://Customers/CustomerData.gd" id="8_fawcw"]
 [ext_resource type="Resource" uid="uid://c6jdp7m27qc07" path="res://Items/Definitions/purple_gem.tres" id="9_61vnm"]
 [ext_resource type="PackedScene" uid="uid://f36ovkjjshuc" path="res://Scenes/Item/Item.tscn" id="9_fawcw"]
-[ext_resource type="Resource" uid="uid://cpujp1iidc4jo" path="res://Custoemrs/Definitions/peasant.tres" id="9_fqp3i"]
+[ext_resource type="Resource" uid="uid://cpujp1iidc4jo" path="res://Customers/Definitions/peasant.tres" id="9_fqp3i"]
 [ext_resource type="PackedScene" uid="uid://lmladihd01m5" path="res://UI/Popovers/PopoverManager.tscn" id="12_6bbxv"]
 [ext_resource type="PackedScene" uid="uid://crem02kcm5p87" path="res://Scenes/ShopCounter/ShopCounter.tscn" id="13_61vnm"]
 

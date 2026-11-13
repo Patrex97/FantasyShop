@@ -58,6 +58,9 @@ func _finish_customer_visit() -> void:
 
 #region Interactions
 func trigger_dialogue(dialogue_name: String) -> void:
+	if not current_customer:
+		return
+	
 	current_customer.start_conversation(dialogue_name)
 
 #endregion Interactions

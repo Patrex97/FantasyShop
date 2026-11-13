@@ -68,9 +68,16 @@ func _on_gui_input(event: InputEvent) -> void:
 			if event.pressed:
 				_on_clicked(event.position)
 
+var active_ballon: Node = null
 
 func start_conversation(dialogue_name: String) -> void:
-	DialogueManager.show_dialogue_balloon(dialogue_resource, dialogue_name, [{
+	if active_ballon:
+		active_ballon.start(dialogue_resource, dialogue_name, [{
+			"customer_name": customer_data.name
+		}])
+		return
+	
+	active_ballon = DialogueManager.show_dialogue_balloon(dialogue_resource, dialogue_name, [{
 		"customer_name": customer_data.name
 	}])
 
