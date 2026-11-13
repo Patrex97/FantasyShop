@@ -64,4 +64,10 @@ visible = false
 layout_mode = 2
 text = "Sprzedaj"
 
+[node name="ItemsManager" type="Control" parent="." unique_id=1394260775]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [connection signal="pressed" from="CounterList/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]

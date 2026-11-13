@@ -1,0 +1,10 @@
+
+~ start
+{{customer_name}}: Chcę to sprzedać.
+{{customer_name}}: Ile mi za to dasz?
+=> END
+
+~ item_sold
+{{customer_name}}: Dobiliśmy targu.
+$> Customers.end_customer_visit()
+=> END

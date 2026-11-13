@@ -3,6 +3,7 @@ class_name ShopCounter
 
 @onready var counter_mc: MarginContainer = %CounterMC
 
+@onready var items_manager: Control = %ItemsManager
 
 var items: Array[Item]
 

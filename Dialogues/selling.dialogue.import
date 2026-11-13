@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://d2q4ubv2cn7qj"
+path="res://.godot/imported/selling.dialogue-bdb35c8fefaaf8c8d66f611fcfaf1940.tres"
+
+[deps]
+
+source_file="res://Dialogues/selling.dialogue"
+dest_files=["res://.godot/imported/selling.dialogue-bdb35c8fefaaf8c8d66f611fcfaf1940.tres"]
+
+[params]
+
+defaults=true

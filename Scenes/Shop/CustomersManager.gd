@@ -8,31 +8,32 @@ signal customer_enter(data: CustomerData)
 @onready var end_day_button: Button = $"../EndDayButton"
 
 @export var customers_data: Array[CustomerData]
-@export var customers_left: int = 0
 @export var UI_scene: UI
-
-var current_customer: Customer
 
 func _ready() -> void:
 	GameManager.day_started.connect(_on_day_started)
 
+#region Queue
+var customers_queue: Array[CustomerData] = []
+
+func _fill_queue(customers_count: int) -> void:
+	for i in range(customers_count):
+		customers_queue.append(customers_data.pick_random())
+#endregion Queue
 
 #region Visit
-#For Dialogue
-func end_customer_visit() -> void:
-	_finish_customer_visit()
-
+var current_customer: Customer
+var customer_visit: CustomerVisit
 
 func _start_customer_visit() -> void:
-	customers_left -= 1
+	var new_customer_data: CustomerData = customers_queue.pop_front()
 	
-	var new_customer_data: CustomerData = customers_data.pick_random()
-	if not new_customer_data:
-		return
-	customer_enter.emit(new_customer_data)
+	customer_visit = CustomerVisit.new(new_customer_data, CustomerVisit.VisitType.Buy, )
+	
+	customer_enter.emit(customer_visit)
 	
 	var new_customer: Customer = CUSTOMER.instantiate()
-	new_customer.setup(new_customer_data)
+	new_customer.setup(customer_visit)
 	
 	new_customer.global_position = Vector2(-200, 65)
 	
@@ -40,7 +41,12 @@ func _start_customer_visit() -> void:
 	
 	current_customer = new_customer
 	
-	UI_scene.update_customers_label(customers_left)
+	UI_scene.update_customers_label(customers_queue.size())
+
+
+##For Dialogue
+func end_customer_visit() -> void:
+	_finish_customer_visit()
 
 
 func _finish_customer_visit() -> void:
@@ -48,7 +54,7 @@ func _finish_customer_visit() -> void:
 	
 	await customer.walk_out()
 	
-	if customers_left > 0:
+	if customers_queue.size() > 0:
 		_start_customer_visit()
 	else:
 		end_day_button.show()
@@ -66,6 +72,6 @@ func trigger_dialogue(dialogue_name: String) -> void:
 #endregion Interactions
 
 func _on_day_started(customers_count: int, _current_day: int) -> void:
-	customers_left = customers_count
+	_fill_queue(customers_count)
 	
 	_start_customer_visit()

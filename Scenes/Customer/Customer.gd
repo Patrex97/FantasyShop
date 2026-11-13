@@ -7,17 +7,17 @@ class_name Customer
 var dialogue_resource = load('res://Dialogues/buying.dialogue')
 
 var can_start_dialog: bool = false
-var customer_data: CustomerData
-
+var customer_visit: CustomerVisit
+var transaction_type: String = 'buy'
 
 func _ready() -> void:
-	interactive_texture.update_texture(customer_data.texture)
-	dialogue_marker_2d.character_name = customer_data.name
+	interactive_texture.update_texture(customer_visit.customer_data.texture)
+	dialogue_marker_2d.character_name = customer_visit.customer_data.name
 	await walk_in()
 
 
-func setup(data: CustomerData) -> void:
-	customer_data = data
+func setup(data: CustomerVisit) -> void:
+	customer_visit = data
 
 
 func _has_point(point: Vector2) -> bool:
@@ -73,12 +73,12 @@ var active_ballon: Node = null
 func start_conversation(dialogue_name: String) -> void:
 	if active_ballon:
 		active_ballon.start(dialogue_resource, dialogue_name, [{
-			"customer_name": customer_data.name
+			"customer_name": customer_visit.customer_data.name
 		}])
 		return
 	
 	active_ballon = DialogueManager.show_dialogue_balloon(dialogue_resource, dialogue_name, [{
-		"customer_name": customer_data.name
+		"customer_name": customer_visit.customer_data.name
 	}])
 
 

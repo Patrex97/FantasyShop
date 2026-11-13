@@ -1,15 +1,17 @@
 [gd_resource type="Resource" script_class="CustomerData" format=3 uid="uid://cpujp1iidc4jo"]
 
-[ext_resource type="Script" uid="uid://bea1gh0gc47ui" path="res://Items/ItemData.gd" id="1_f4kbw"]
-[ext_resource type="Resource" uid="uid://cguoffsyid1d7" path="res://Items/Definitions/iron_sword.tres" id="2_5yhbc"]
-[ext_resource type="Script" uid="uid://c4a71a0oh0bin" path="res://Customers/CustomerData.gd" id="3_5yhbc"]
+[ext_resource type="Script" uid="uid://bea1gh0gc47ui" path="res://Classes/Items/ItemData.gd" id="1_f4kbw"]
+[ext_resource type="Resource" uid="uid://cguoffsyid1d7" path="res://Classes/Items/Definitions/iron_sword.tres" id="2_5yhbc"]
+[ext_resource type="Script" uid="uid://c4a71a0oh0bin" path="res://Classes/Customers/CustomerData.gd" id="3_5yhbc"]
 [ext_resource type="Texture2D" uid="uid://bgqhpg4bd303o" path="res://Assets/FantasyShop - Customer.png" id="4_53slo"]
 
 [resource]
 script = ExtResource("3_5yhbc")
+id = &"peasant"
 name = "Peasant"
 texture = ExtResource("4_53slo")
 min_gold = 10
 max_gold = 30
 items_to_buy = Array[ExtResource("1_f4kbw")]([ExtResource("2_5yhbc")])
+items_to_sell = Array[ExtResource("1_f4kbw")]([ExtResource("2_5yhbc")])
 metadata/_custom_type_script = "uid://c4a71a0oh0bin"

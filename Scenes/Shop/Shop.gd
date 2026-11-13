@@ -15,11 +15,11 @@ func _on_end_day_button_pressed() -> void:
 	end_day_button.hide()
 
 #region Transaction
-var current_customer_data: CustomerData 
+var customer_visit: CustomerVisit
 var current_counter_items: Array[Item]
 
-func _on_customer_enter(data: CustomerData) -> void:
-	current_customer_data = data
+func _on_customer_enter(data: CustomerVisit) -> void:
+	customer_visit = data
 	print('Customer entered')
 
 func _on_counter_updated(items: Array[Item]) -> void:
@@ -27,14 +27,13 @@ func _on_counter_updated(items: Array[Item]) -> void:
 	_check_transaction()
 
 func _check_transaction() -> void:
-	var items_matched: bool = true
-	if current_customer_data:
+	var items_matched: bool = false
+	if customer_visit:
 		items_matched = _find_all_matching_items().size() > 0
 	
 	if items_matched:
 		customers_manager.trigger_dialogue('item_approved')
 		shop_counter.toggle_sell_button(true)
-
 
 
 func _find_item_by_id(id: StringName) -> Item:
@@ -47,7 +46,7 @@ func _find_item_by_id(id: StringName) -> Item:
 
 func _find_all_matching_items() -> Array[Item]:
 	var matching_items: Array[Item]
-	for item in current_customer_data.items_to_buy:
+	for item in customer_visit.customer_data.items_to_buy:
 		var result: Item = _find_item_by_id(item.id)
 		if result != null:
 			matching_items.append(result)
