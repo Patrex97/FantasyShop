@@ -4,7 +4,10 @@ class_name Customer
 @onready var interactive_texture: InteractiveTexture = $InteractiveTexture
 @onready var dialogue_marker_2d: DialogueMarker2D = $DialogueMarker2D
 
-var dialogue_resource = load('res://Dialogues/buying.dialogue')
+const DIALOGUES = {
+	CustomerVisit.VisitType.Buy: preload("uid://od3jb0o7uc68"),
+	CustomerVisit.VisitType.Sell: preload("uid://d2q4ubv2cn7qj")
+}
 
 var can_start_dialog: bool = false
 var customer_visit: CustomerVisit
@@ -71,16 +74,14 @@ func _on_gui_input(event: InputEvent) -> void:
 var active_ballon: Node = null
 
 func start_conversation(dialogue_name: String) -> void:
+	var dialogue_res: Resource = DIALOGUES[customer_visit.visit_type]
+	
 	if active_ballon:
-		active_ballon.start(dialogue_resource, dialogue_name, [{
+		active_ballon.start(dialogue_res, dialogue_name, [{
 			"customer_name": customer_visit.customer_data.name
 		}])
 		return
 	
-	active_ballon = DialogueManager.show_dialogue_balloon(dialogue_resource, dialogue_name, [{
+	active_ballon = DialogueManager.show_dialogue_balloon(dialogue_res, dialogue_name, [{
 		"customer_name": customer_visit.customer_data.name
 	}])
-
-
-func approve_item() -> void:
-	start_conversation('item_approved')

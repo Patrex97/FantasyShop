@@ -1,6 +1,9 @@
 extends Control
 class_name ShopCounter
 
+const ITEM = preload("uid://f36ovkjjshuc")
+
+
 @onready var counter_mc: MarginContainer = %CounterMC
 
 @onready var items_manager: Control = %ItemsManager
@@ -10,20 +13,6 @@ var items: Array[Item]
 #region Drag&Drop
 func is_point_inside(global_point: Vector2) -> bool:
 	return counter_mc.get_global_rect().has_point(global_point)
-
-func add_to_counter(new_item: Item) -> void:
-	if items.has(new_item):
-		return
-	
-	items.append(new_item)
-	_update_counter_list()
-
-func remove_from_counter(item_to_remove: Item) -> void:
-	if not items.has(item_to_remove):
-		return
-	
-	items.erase(item_to_remove)
-	_update_counter_list()
 #endregion Drag&Drop
 
 #region CounterList
@@ -63,6 +52,26 @@ func _update_counter_list() -> void:
 	counter_list.show()
 
 
+func add_to_counter(new_item: Item) -> void:
+	if items.has(new_item):
+		return
+	
+	items.append(new_item)
+	_update_counter_list()
+
+func remove_from_counter(item_to_remove: Item) -> void:
+	if not items.has(item_to_remove):
+		return
+	
+	items.erase(item_to_remove)
+	_update_counter_list()
+
+
+func spawn_items(items_datad: Array[ItemData]) -> void:
+	for item_data in items_datad:
+		_spawn_item(item_data)
+
+
 func remove_items(items_to_remove: Array[Item]) -> void:
 	for item in items_to_remove:
 		remove_from_counter(item)
@@ -84,3 +93,14 @@ func toggle_sell_button(state: bool) -> void:
 func _on_sell_button_pressed() -> void:
 	sell.emit()
 #endregion Buttons
+
+#region helpers
+func _spawn_item(item_data: ItemData) -> void:
+	var new_item: Item = ITEM.instantiate()
+	
+	new_item.setup(item_data)
+	
+	item_data.position = Vector2(100, 100)
+	items_manager.add_child(new_item)
+
+#endregion helpers

@@ -20,20 +20,27 @@ var current_counter_items: Array[Item]
 
 func _on_customer_enter(data: CustomerVisit) -> void:
 	customer_visit = data
-	print('Customer entered')
+	print(customer_visit)
+	_check_transaction()
 
 func _on_counter_updated(items: Array[Item]) -> void:
 	current_counter_items = items
 	_check_transaction()
 
 func _check_transaction() -> void:
-	var items_matched: bool = false
-	if customer_visit:
-		items_matched = _find_all_matching_items().size() > 0
-	
-	if items_matched:
-		customers_manager.trigger_dialogue('item_approved')
-		shop_counter.toggle_sell_button(true)
+	match customer_visit.visit_type:
+		CustomerVisit.VisitType.Buy:
+			var items_matched: bool = false
+			if customer_visit:
+				items_matched = _find_all_matching_items().size() > 0
+			
+			if items_matched:
+				customers_manager.trigger_dialogue('item_approved')
+				shop_counter.toggle_sell_button(true)
+		CustomerVisit.VisitType.Sell:
+			print('Chcę sprzedać')
+		_:
+			print('Nie ma logiki pod ten rodzaj wizyty')
 
 
 func _find_item_by_id(id: StringName) -> Item:

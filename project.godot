@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 DialogueManager="*uid://c3rodes2l3gxb"
 GameManager="*uid://cmhoehm4acy57"
 PopoverManager="*uid://lmladihd01m5"
+Database="*uid://c6rhbo23tvkn3"
 
 [dialogue_manager]
 

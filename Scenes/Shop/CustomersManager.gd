@@ -27,18 +27,15 @@ var customer_visit: CustomerVisit
 
 func _start_customer_visit() -> void:
 	var new_customer_data: CustomerData = customers_queue.pop_front()
-	
-	customer_visit = CustomerVisit.new(new_customer_data, CustomerVisit.VisitType.Buy, )
+	customer_visit = CustomerVisit.new(new_customer_data, CustomerVisit.VisitType.Sell)
 	
 	customer_enter.emit(customer_visit)
 	
 	var new_customer: Customer = CUSTOMER.instantiate()
 	new_customer.setup(customer_visit)
-	
 	new_customer.global_position = Vector2(-200, 65)
-	
 	add_child(new_customer)
-	
+
 	current_customer = new_customer
 	
 	UI_scene.update_customers_label(customers_queue.size())
