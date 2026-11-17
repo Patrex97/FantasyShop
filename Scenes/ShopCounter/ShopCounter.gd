@@ -17,6 +17,7 @@ func is_point_inside(global_point: Vector2) -> bool:
 
 #region CounterList
 @onready var counter_list: PanelContainer = %CounterList
+@onready var title_label: Label = %TitleLabel
 @onready var items_list: VBoxContainer = $CounterList/VBoxContainer/ItemsList
 
 signal counter_updated(items: Array[Item])
@@ -70,37 +71,63 @@ func remove_from_counter(item_to_remove: Item) -> void:
 func spawn_items(items_datad: Array[ItemData]) -> void:
 	for item_data in items_datad:
 		_spawn_item(item_data)
+	
+	_update_counter_list()
 
 
 func remove_items(items_to_remove: Array[Item]) -> void:
 	for item in items_to_remove:
 		remove_from_counter(item)
 		item.queue_free()
+
+func get_items_total_value() -> int:
+	var total: int = 0
+	
+	for item in items:
+		total += item.item_data.base_value
+	
+	return total
 #endregion
 
-#region Buttons
-@onready var sell_button: Button = %SellButton
+#region Buy
+func start_buy_transaction() -> void:
+	title_label.text = 'Kupuje' # Klient kupuje
+#endregion Buy
 
-signal sell
+#region Sell
+func start_sell_transaction(new_items: Array[ItemData]) -> void:
+	spawn_items(new_items)
+	title_label.text = 'Sprzedaje' # Klient sprzedaje
 
-func toggle_sell_button(state: bool) -> void:
-	if state:
-		sell_button.show()
-	else:
-		sell_button.hide()
+func items_sold() -> void:
+	var shop_items_manager: Control = get_tree().get_first_node_in_group('ItemsManager')
+	for item in items:
+		item.reparent(shop_items_manager)
+		item.draggable = true
+#endregion Sell
 
+#region Finalize Button
+@onready var finalize_button: Button = %FinalizeButton
 
-func _on_sell_button_pressed() -> void:
-	sell.emit()
-#endregion Buttons
+signal finalize_transaction
+
+func set_finalize_button_disabled(value: bool) -> void:
+	finalize_button.disabled = value
+
+func _on_finalize_button_pressed() -> void:
+	#TODO: Przerobić na generyczne rozwiązanie
+	finalize_transaction.emit()
+#endregion Finalize Button
 
 #region helpers
 func _spawn_item(item_data: ItemData) -> void:
 	var new_item: Item = ITEM.instantiate()
 	
-	new_item.setup(item_data)
+	new_item.setup(item_data, false)
 	
-	item_data.position = Vector2(100, 100)
+	var rect = counter_mc.get_rect()
+	
+	new_item.position = Vector2(rect.size.x / 2, rect.size.y / 2)
 	items_manager.add_child(new_item)
-
+	items.append(new_item)
 #endregion helpers

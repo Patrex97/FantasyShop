@@ -20,6 +20,6 @@ func _init(
 	customer_data = p_customer_data
 	visit_type = p_visit_type
 	gold = randi_range(p_customer_data.min_gold, p_customer_data.max_gold)
-	for i in range(3):
-		items.append(item_data.pick_random().duplicate())
+	#items.append(item_data.pick_random().duplicate())
+	items.append(item_data[0].duplicate())
 	

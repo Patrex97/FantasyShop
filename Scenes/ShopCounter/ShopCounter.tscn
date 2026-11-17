@@ -46,22 +46,23 @@ layout_mode = 2
 theme_override_constants/separation = 4
 
 [node name="TitleLabel" type="Label" parent="CounterList/VBoxContainer" unique_id=423320598]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 32
-text = "Sprzedaż"
+text = "Kupuje"
 horizontal_alignment = 1
 
 [node name="ItemsList" type="VBoxContainer" parent="CounterList/VBoxContainer" unique_id=474850148]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SellButton" type="Button" parent="CounterList/VBoxContainer" unique_id=1911224637]
+[node name="FinalizeButton" type="Button" parent="CounterList/VBoxContainer" unique_id=1911224637]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
+disabled = true
 text = "Sprzedaj"
 
 [node name="ItemsManager" type="Control" parent="." unique_id=1394260775]
@@ -70,4 +71,4 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[connection signal="pressed" from="CounterList/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="CounterList/VBoxContainer/FinalizeButton" to="." method="_on_finalize_button_pressed"]

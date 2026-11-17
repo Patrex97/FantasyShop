@@ -7,7 +7,7 @@ class_name Item
 
 var shop_counter: ShopCounter
 
-
+var draggable: bool = true
 var is_dragging: bool = false
 var mouse_click_offset: Vector2 = Vector2.ZERO
 
@@ -17,8 +17,9 @@ func _ready() -> void:
 	interactive_texture.update_texture(item_data.texture)
 
 
-func setup(new_item_data: ItemData) -> void:
+func setup(new_item_data: ItemData, p_draggable: bool = true) -> void:
 	item_data = new_item_data
+	draggable = p_draggable
 
 
 func _has_point(point: Vector2) -> bool:
@@ -44,6 +45,9 @@ func _gui_input(event: InputEvent) -> void:
 
 #region Drag&Drop
 func _start_drag(clicked_pos: Vector2) -> void:
+	if not draggable: 
+		return
+	
 	is_dragging = true
 	mouse_click_offset = clicked_pos
 	move_to_front()
@@ -56,6 +60,9 @@ func _drag() -> void:
 
 
 func _drop(mouse_position: Vector2) -> void:
+	if not is_dragging:
+		return
+	
 	is_dragging = false
 	
 	_show_popover()

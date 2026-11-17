@@ -35,7 +35,6 @@ window/size/initial_screen=1
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [editor]
 
@@ -52,6 +51,10 @@ enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 folder_colors={
 "res://addons/": "gray"
 }
+
+[global_group]
+
+ItemsManager=""
 
 [internationalization]
 

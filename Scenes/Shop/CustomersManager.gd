@@ -55,8 +55,7 @@ func _finish_customer_visit() -> void:
 		_start_customer_visit()
 	else:
 		end_day_button.show()
-	
-	current_customer = null
+		current_customer = null
 #endregion Visit
 
 #region Interactions

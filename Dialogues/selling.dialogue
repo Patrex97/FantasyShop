@@ -1,6 +1,7 @@
 
 ~ start
 {{customer_name}}: Chcę to sprzedać.
+$> Shop.put_items_on_counter()
 {{customer_name}}: Ile mi za to dasz?
 => END
 

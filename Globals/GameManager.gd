@@ -24,7 +24,7 @@ func start_day() -> void:
 #endregion Time
 
 #region Money
-var player_balance: int = 10
+var player_balance: int = 100
 
 func change_balance(value: int) -> bool:
 	if value < 0 and abs(value) > player_balance:

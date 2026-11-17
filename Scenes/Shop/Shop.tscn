@@ -65,7 +65,7 @@ offset_top = 312.0
 offset_right = 53.0
 offset_bottom = 332.0
 
-[node name="ItemsManager" type="Control" parent="." unique_id=1963902709]
+[node name="ItemsManager" type="Control" parent="." unique_id=1963902709 groups=["ItemsManager"]]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -96,10 +96,16 @@ offset_bottom = 517.0
 theme = ExtResource("7_d2lwj")
 text = "Zakończ dzień"
 
-[node name="DialogueStateContext" type="Node" parent="." unique_id=1800078145 node_paths=PackedStringArray("target")]
+[node name="CustomersDialogueStateContext" type="Node" parent="." unique_id=853756975 node_paths=PackedStringArray("target")]
 script = ExtResource("8_d2lwj")
 alias = "Customers"
 target = NodePath("../CustomersManager")
+metadata/_custom_type_script = "uid://cd3222nx3y3k5"
+
+[node name="ShopDialogueStateContext" type="Node" parent="." unique_id=1800078145 node_paths=PackedStringArray("target")]
+script = ExtResource("8_d2lwj")
+alias = "Shop"
+target = NodePath("..")
 metadata/_custom_type_script = "uid://cd3222nx3y3k5"
 
 [node name="PopoverManager" parent="." unique_id=1634961796 instance=ExtResource("12_6bbxv")]
