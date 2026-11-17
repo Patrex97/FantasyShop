@@ -104,6 +104,7 @@ func items_sold() -> void:
 	for item in items:
 		item.reparent(shop_items_manager)
 		item.draggable = true
+		item.modulate.a = 1
 #endregion Sell
 
 #region Finalize Button

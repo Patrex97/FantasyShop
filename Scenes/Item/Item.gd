@@ -20,6 +20,8 @@ func _ready() -> void:
 func setup(new_item_data: ItemData, p_draggable: bool = true) -> void:
 	item_data = new_item_data
 	draggable = p_draggable
+	if not p_draggable:
+		modulate.a = 0.5
 
 
 func _has_point(point: Vector2) -> bool:
