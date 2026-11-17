@@ -26,8 +26,10 @@ var current_customer: Customer
 var customer_visit: CustomerVisit
 
 func _start_customer_visit() -> void:
+	var visit_type: CustomerVisit.VisitType = randi_range(0, 1) as CustomerVisit.VisitType
+	
 	var new_customer_data: CustomerData = customers_queue.pop_front()
-	customer_visit = CustomerVisit.new(new_customer_data, CustomerVisit.VisitType.Sell)
+	customer_visit = CustomerVisit.new(new_customer_data, visit_type)
 	
 	customer_enter.emit(customer_visit)
 	
