@@ -13,7 +13,7 @@ config_version=5
 config/name="Fantasy Shop"
 run/main_scene="uid://drk0esrvu7oht"
 config/features=PackedStringArray("4.7", "Mobile")
-config/icon="res://icon.svg"
+config/icon="uid://b5cwcbkfi6joh"
 
 [autoload]
 
