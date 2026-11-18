@@ -56,7 +56,7 @@ func _start_customer_visit() -> void:
 	
 	visit_state = VisitState.Approaching
 	
-	var visit_type: CustomerVisit.VisitType = randi_range(0, 0) as CustomerVisit.VisitType
+	var visit_type: CustomerVisit.VisitType = randi_range(1, 1) as CustomerVisit.VisitType
 	
 	var new_customer_data: CustomerData = customers_queue.pop_front()
 	customer_visit = CustomerVisit.new(new_customer_data, visit_type)
@@ -98,7 +98,7 @@ func _finish_customer_visit() -> void:
 	
 	visit_state = VisitState.Idle
 	
-	if customers_queue.size() > 0:
+	if not customers_queue.is_empty():
 		_start_customer_visit()
 	else:
 		end_day_button.show()

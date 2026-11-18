@@ -10,6 +10,7 @@ const ITEM = preload("uid://f36ovkjjshuc")
 
 
 var items: Array[Item]
+var customer_items: Array[Item]
 
 
 #region Drag&Drop
@@ -37,7 +38,9 @@ func _update_counter_list() -> void:
 	for child in items_list.get_children():
 		child.queue_free()
 	
-	for item in items:
+	var items_to_display: Array[Item] = customer_items if not customer_items.is_empty() else items
+	
+	for item in items_to_display:
 		var item_data: ItemData = item.item_data
 		
 		var row: HBoxContainer = HBoxContainer.new()
@@ -76,23 +79,15 @@ func remove_from_counter(item_to_remove: Item) -> void:
 		return
 	
 	items.erase(item_to_remove)
-	_update_counter_list()
-
-
-func spawn_items(items_datad: Array[ItemData]) -> void:
-	for item_data in items_datad:
-		_spawn_item(item_data)
+	customer_items.erase(item_to_remove)
 	
 	_update_counter_list()
 
 
 func remove_items(items_to_remove: Array[Item]) -> void:
 	for item in items_to_remove:
-		print('item')
 		remove_from_counter(item)
 		item.queue_free()
-	
-	_update_counter_list()
 #endregion Items
 
 
@@ -105,9 +100,28 @@ func start_buy_transaction() -> void:
 
 #region Sell
 func start_sell_transaction(new_items: Array[ItemData]) -> void:
-	spawn_items(new_items)
+	_spawn_items(new_items)
 	title_label.text = 'Sprzedaje' # Klient sprzedaje
 	finalize_button.text = "Kup"
+
+
+func _spawn_items(items_data: Array[ItemData]) -> void:
+	for item_data in items_data:
+		var new_item: Item = ITEM.instantiate()
+		
+		new_item.setup(item_data, false)
+		
+		var rect = counter_mc.get_rect()
+		
+		new_item.position = Vector2(rect.size.x / 2, rect.size.y / 2)
+		
+		items_manager.add_child(new_item)
+		
+		items.append(new_item)
+		customer_items.append(new_item)
+	
+	_update_counter_list()
+
 
 func items_sold() -> void:
 	var shop_items_manager: Control = get_tree().get_first_node_in_group('ItemsManager')
@@ -115,6 +129,10 @@ func items_sold() -> void:
 		item.reparent(shop_items_manager)
 		item.draggable = true
 		item.modulate.a = 1
+		
+		customer_items.erase(item)
+	
+	_update_counter_list()
 #endregion Sell
 
 
@@ -135,18 +153,6 @@ func _on_finalize_button_pressed() -> void:
 #endregion Finalize Button
 
 #region helpers
-func _spawn_item(item_data: ItemData) -> void:
-	var new_item: Item = ITEM.instantiate()
-	
-	new_item.setup(item_data, false)
-	
-	var rect = counter_mc.get_rect()
-	
-	new_item.position = Vector2(rect.size.x / 2, rect.size.y / 2)
-	items_manager.add_child(new_item)
-	items.append(new_item)
-
-
 func get_items_total_value(p_items: Array[Item] = items) -> int:
 	var total: int = 0
 	

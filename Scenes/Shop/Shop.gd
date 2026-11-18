@@ -60,12 +60,12 @@ func _check_transaction() -> void:
 		CustomerVisit.VisitType.Buy:
 			var items_matched: bool = false
 			if customer_visit:
-				items_matched = _find_all_matching_items().size() > 0
+				items_matched = not _find_all_matching_items().is_empty()
 			
 			if items_matched:
 				can_finalize = true
 		CustomerVisit.VisitType.Sell:
-			var final_value: int = shop_counter.get_items_total_value()
+			var final_value: int = shop_counter.get_items_total_value(shop_counter.customer_items)
 			can_finalize = final_value <= GameManager.player_balance
 		_:
 			print('check_transaction: Nie ma logiki dla tego wariantu')
@@ -85,7 +85,7 @@ func _on_finalize_transaction() -> void:
 			
 			customers_manager.trigger_dialogue('item_bought')
 		CustomerVisit.VisitType.Sell:
-			var total_value: int = shop_counter.get_items_total_value()
+			var total_value: int = shop_counter.get_items_total_value(shop_counter.customer_items)
 			GameManager.change_balance(-total_value)
 			shop_counter.items_sold()
 			

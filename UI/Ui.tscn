@@ -32,7 +32,7 @@ alignment = 1
 [node name="BalanceLabel" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer" unique_id=996342607]
 unique_name_in_owner = true
 layout_mode = 2
-text = "10"
+text = "100"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer" unique_id=20486411]
 custom_maximum_size = Vector2(30, 30)
