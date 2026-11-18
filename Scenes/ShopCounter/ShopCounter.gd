@@ -125,7 +125,7 @@ func _spawn_items(items_data: Array[ItemData]) -> void:
 
 func items_sold() -> void:
 	var shop_items_manager: Control = get_tree().get_first_node_in_group('ItemsManager')
-	for item in items:
+	for item in customer_items:
 		item.reparent(shop_items_manager)
 		item.draggable = true
 		item.modulate.a = 1
