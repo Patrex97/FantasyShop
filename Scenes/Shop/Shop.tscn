@@ -9,7 +9,6 @@
 [ext_resource type="Theme" uid="uid://b162ctlgmmeru" path="res://Themes/default.tres" id="7_d2lwj"]
 [ext_resource type="Script" uid="uid://cd3222nx3y3k5" path="res://addons/dialogue_manager/nodes/context/dialogue_state_context.gd" id="8_d2lwj"]
 [ext_resource type="Script" uid="uid://c4a71a0oh0bin" path="res://Classes/Customers/CustomerData.gd" id="8_fawcw"]
-[ext_resource type="Resource" uid="uid://c6jdp7m27qc07" path="res://Classes/Items/Definitions/purple_gem.tres" id="9_61vnm"]
 [ext_resource type="PackedScene" uid="uid://f36ovkjjshuc" path="res://Scenes/Item/Item.tscn" id="9_fawcw"]
 [ext_resource type="Resource" uid="uid://cpujp1iidc4jo" path="res://Classes/Customers/Definitions/peasant.tres" id="9_fqp3i"]
 [ext_resource type="PackedScene" uid="uid://lmladihd01m5" path="res://UI/Popovers/PopoverManager.tscn" id="12_6bbxv"]
@@ -85,7 +84,7 @@ offset_left = 385.0
 offset_top = 498.0
 offset_right = 385.0
 offset_bottom = 498.0
-item_data = ExtResource("9_61vnm")
+item_data = ExtResource("7_2xpuo")
 
 [node name="EndDayButton" type="Button" parent="." unique_id=541469721]
 layout_mode = 0

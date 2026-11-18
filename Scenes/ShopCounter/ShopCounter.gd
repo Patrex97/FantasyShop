@@ -56,6 +56,10 @@ func _update_counter_list() -> void:
 		items_list.add_child(row)
 	
 	counter_list.show()
+#endregion CounterList
+
+#region Items
+signal item_added(item: Item)
 
 
 func add_to_counter(new_item: Item) -> void:
@@ -64,6 +68,7 @@ func add_to_counter(new_item: Item) -> void:
 	
 	items.append(new_item)
 	_update_counter_list()
+	item_added.emit(new_item)
 
 
 func remove_from_counter(item_to_remove: Item) -> void:
@@ -83,9 +88,12 @@ func spawn_items(items_datad: Array[ItemData]) -> void:
 
 func remove_items(items_to_remove: Array[Item]) -> void:
 	for item in items_to_remove:
+		print('item')
 		remove_from_counter(item)
 		item.queue_free()
-#endregion
+	
+	_update_counter_list()
+#endregion Items
 
 
 #region Buy

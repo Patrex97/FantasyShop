@@ -4,12 +4,9 @@ $> Shop.start_transaction()
 => END
 
 ~ item_approved
-
 {{customer_name}}: O, właśnie o ten przedmiot mi chodziło!
 => END
 
 ~ item_bought
-
 {{customer_name}}: Nareszcie mam miecz. Dziękuję!
-$> Customers.end_customer_visit()
 => END

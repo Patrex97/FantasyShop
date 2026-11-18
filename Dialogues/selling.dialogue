@@ -7,5 +7,4 @@ $> Shop.start_transaction()
 
 ~ item_sold
 {{customer_name}}: Dobiliśmy targu.
-$> Customers.end_customer_visit()
 => END

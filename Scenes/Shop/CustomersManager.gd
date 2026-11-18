@@ -11,20 +11,29 @@ enum VisitState {
 
 const CUSTOMER = preload("uid://cf3kwn74fxd4e")
 
-signal customer_enter(data: CustomerVisit)
 
 @onready var end_day_button: Button = $"../EndDayButton"
+
+signal visit_state_changed(new_visit_state: VisitState)
+
 
 @export var customers_data: Array[CustomerData]
 @export var UI_scene: UI
 
-var visit_state: VisitState = VisitState.Idle
+
+var visit_state: VisitState = VisitState.Idle:
+	set(value):
+		visit_state = value
+		visit_state_changed.emit(value)
+
 
 func _ready() -> void:
 	GameManager.day_started.connect(_on_day_started)
 
+
 #region Queue
 var customers_queue: Array[CustomerData] = []
+
 
 func _fill_queue(customers_count: int) -> void:
 	for i in range(customers_count):
@@ -32,8 +41,13 @@ func _fill_queue(customers_count: int) -> void:
 #endregion Queue
 
 #region Visit
+signal customer_enter(data: CustomerVisit)
+signal customer_left
+
+
 var current_customer: Customer
 var customer_visit: CustomerVisit
+
 
 func _start_customer_visit() -> void:
 	if customers_queue.is_empty():
@@ -42,7 +56,7 @@ func _start_customer_visit() -> void:
 	
 	visit_state = VisitState.Approaching
 	
-	var visit_type: CustomerVisit.VisitType = randi_range(0, 1) as CustomerVisit.VisitType
+	var visit_type: CustomerVisit.VisitType = randi_range(0, 0) as CustomerVisit.VisitType
 	
 	var new_customer_data: CustomerData = customers_queue.pop_front()
 	customer_visit = CustomerVisit.new(new_customer_data, visit_type)
@@ -80,6 +94,7 @@ func _finish_customer_visit() -> void:
 	
 	current_customer.queue_free()
 	current_customer = null
+	customer_left.emit()
 	
 	visit_state = VisitState.Idle
 	
