@@ -1,26 +1,33 @@
 extends Control
 class_name Customer
 
-@onready var interactive_texture: InteractiveTexture = $InteractiveTexture
-@onready var dialogue_marker_2d: DialogueMarker2D = $DialogueMarker2D
 
 const DIALOGUES = {
 	CustomerVisit.VisitType.Buy: preload("uid://od3jb0o7uc68"),
 	CustomerVisit.VisitType.Sell: preload("uid://d2q4ubv2cn7qj")
 }
 
-var can_start_dialog: bool = false
+
+@onready var interactive_texture: InteractiveTexture = $InteractiveTexture
+@onready var dialogue_marker_2d: DialogueMarker2D = $DialogueMarker2D
+
+
+signal clicked
+
+
 var customer_visit: CustomerVisit
-var transaction_type: String = 'buy'
+
 
 func _ready() -> void:
 	interactive_texture.update_texture(customer_visit.customer_data.texture)
 	dialogue_marker_2d.character_name = customer_visit.customer_data.name
-	await walk_in()
 
 
-func setup(data: CustomerVisit) -> void:
-	customer_visit = data
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				clicked.emit()
 
 
 func _has_point(point: Vector2) -> bool:
@@ -30,6 +37,10 @@ func _has_point(point: Vector2) -> bool:
 	return interactive_texture.is_pixel_interactive(local_point)
 
 
+func setup(data: CustomerVisit) -> void:
+	customer_visit = data
+
+#region Actions
 func walk_in() -> void:
 	var tween: Tween = create_tween()
 	tween.tween_property(
@@ -40,7 +51,6 @@ func walk_in() -> void:
 	)
 	
 	await tween.finished
-	can_start_dialog = true
 
 
 func walk_out() -> void:
@@ -53,30 +63,16 @@ func walk_out() -> void:
 	)
 	
 	await tween.finished
-	
-	queue_free()
+#endregion Actions
 
 
-func _on_clicked(_clicked_pos: Vector2) -> void:
-	if not can_start_dialog:
-		return
-	
-	start_conversation('start')
-	can_start_dialog = false
-
-
-func _on_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				_on_clicked(event.position)
-
+#region Dialogue
 var active_ballon: Node = null
 
 func start_conversation(dialogue_name: String) -> void:
 	var dialogue_res: Resource = DIALOGUES[customer_visit.visit_type]
 	
-	if active_ballon:
+	if is_instance_valid(active_ballon):
 		active_ballon.start(dialogue_res, dialogue_name, [{
 			"customer_name": customer_visit.customer_data.name
 		}])
@@ -85,3 +81,4 @@ func start_conversation(dialogue_name: String) -> void:
 	active_ballon = DialogueManager.show_dialogue_balloon(dialogue_res, dialogue_name, [{
 		"customer_name": customer_visit.customer_data.name
 	}])
+#endregion Dialogue
