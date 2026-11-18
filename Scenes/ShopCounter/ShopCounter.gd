@@ -1,29 +1,34 @@
 extends Control
 class_name ShopCounter
 
+
 const ITEM = preload("uid://f36ovkjjshuc")
 
 
 @onready var counter_mc: MarginContainer = %CounterMC
-
 @onready var items_manager: Control = %ItemsManager
 
+
 var items: Array[Item]
+
 
 #region Drag&Drop
 func is_point_inside(global_point: Vector2) -> bool:
 	return counter_mc.get_global_rect().has_point(global_point)
 #endregion Drag&Drop
 
+
 #region CounterList
 @onready var counter_list: PanelContainer = %CounterList
 @onready var title_label: Label = %TitleLabel
 @onready var items_list: VBoxContainer = $CounterList/VBoxContainer/ItemsList
 
-signal counter_updated(items: Array[Item])
+
+signal counter_updated
+
 
 func _update_counter_list() -> void:
-	counter_updated.emit(items)
+	counter_updated.emit()
 	
 	if not items.size():
 		counter_list.hide()
@@ -60,6 +65,7 @@ func add_to_counter(new_item: Item) -> void:
 	items.append(new_item)
 	_update_counter_list()
 
+
 func remove_from_counter(item_to_remove: Item) -> void:
 	if not items.has(item_to_remove):
 		return
@@ -79,25 +85,21 @@ func remove_items(items_to_remove: Array[Item]) -> void:
 	for item in items_to_remove:
 		remove_from_counter(item)
 		item.queue_free()
-
-func get_items_total_value() -> int:
-	var total: int = 0
-	
-	for item in items:
-		total += item.item_data.base_value
-	
-	return total
 #endregion
+
 
 #region Buy
 func start_buy_transaction() -> void:
 	title_label.text = 'Kupuje' # Klient kupuje
+	finalize_button.text = 'Sprzedaj'
 #endregion Buy
+
 
 #region Sell
 func start_sell_transaction(new_items: Array[ItemData]) -> void:
 	spawn_items(new_items)
 	title_label.text = 'Sprzedaje' # Klient sprzedaje
+	finalize_button.text = "Kup"
 
 func items_sold() -> void:
 	var shop_items_manager: Control = get_tree().get_first_node_in_group('ItemsManager')
@@ -107,13 +109,17 @@ func items_sold() -> void:
 		item.modulate.a = 1
 #endregion Sell
 
+
 #region Finalize Button
 @onready var finalize_button: Button = %FinalizeButton
 
+
 signal finalize_transaction
+
 
 func set_finalize_button_disabled(value: bool) -> void:
 	finalize_button.disabled = value
+
 
 func _on_finalize_button_pressed() -> void:
 	#TODO: Przerobić na generyczne rozwiązanie
@@ -131,4 +137,21 @@ func _spawn_item(item_data: ItemData) -> void:
 	new_item.position = Vector2(rect.size.x / 2, rect.size.y / 2)
 	items_manager.add_child(new_item)
 	items.append(new_item)
+
+
+func get_items_total_value(p_items: Array[Item] = items) -> int:
+	var total: int = 0
+	
+	for item in p_items:
+		total += item.item_data.base_value
+	
+	return total
+
+
+func find_item_by_id(id: StringName) -> Item:
+	for item in items:
+		if item.item_data.id == id:
+			return item
+	
+	return null
 #endregion helpers

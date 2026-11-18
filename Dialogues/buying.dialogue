@@ -1,5 +1,6 @@
 ~ start
 {{customer_name}}: Cześć. Szukam żelaznego miecz. Masz coś na stanie?
+$> Shop.start_transaction()
 => END
 
 ~ item_approved

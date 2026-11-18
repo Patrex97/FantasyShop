@@ -16,14 +16,25 @@ func _on_end_day_button_pressed() -> void:
 
 #region Transaction
 var customer_visit: CustomerVisit
-var current_counter_items: Array[Item]
+
 
 func _on_customer_enter(data: CustomerVisit) -> void:
 	customer_visit = data
+
+
+func _on_counter_updated() -> void:
 	_check_transaction()
 
-func _on_counter_updated(items: Array[Item]) -> void:
-	current_counter_items = items
+
+func start_transaction() -> void:
+	match customer_visit.visit_type:
+		CustomerVisit.VisitType.Buy:
+			shop_counter.start_buy_transaction()
+		CustomerVisit.VisitType.Sell:
+			shop_counter.start_sell_transaction(customer_visit.items)
+		_:
+			print('start_ransaction: Nie ma logiki dla tego wariantu')
+	
 	_check_transaction()
 
 func _check_transaction() -> void:
@@ -45,40 +56,9 @@ func _check_transaction() -> void:
 			var final_value: int = shop_counter.get_items_total_value()
 			can_finalize = final_value <= GameManager.player_balance
 		_:
-			print('Nie ma logiki pod ten rodzaj wizyty')
+			print('check_transaction: Nie ma logiki dla tego wariantu')
 	
 	shop_counter.set_finalize_button_disabled(not can_finalize)
-
-
-func put_items_on_counter() -> void:
-	shop_counter.start_sell_transaction(customer_visit.items)
-
-
-func _find_item_by_id(id: StringName) -> Item:
-	for item in current_counter_items:
-		if item.item_data.id == id:
-			return item
-	
-	return null
-
-
-func _find_all_matching_items() -> Array[Item]:
-	var matching_items: Array[Item]
-	for item in customer_visit.customer_data.items_to_buy:
-		var result: Item = _find_item_by_id(item.id)
-		if result != null:
-			matching_items.append(result)
-	
-	return matching_items
-
-
-func _get_total_value(items: Array[Item]) -> int:
-	var total: int = 0
-	
-	for item in items:
-		total += item.item_data.base_value
-	
-	return total
 
 
 func _on_finalize_transaction() -> void:
@@ -86,7 +66,7 @@ func _on_finalize_transaction() -> void:
 		CustomerVisit.VisitType.Buy:
 			var bought_itms: Array[Item] = _find_all_matching_items()
 			
-			var total_value: int = _get_total_value(bought_itms)
+			var total_value: int = shop_counter.get_items_total_value(bought_itms)
 			GameManager.change_balance(total_value)
 			
 			shop_counter.remove_items(bought_itms)
@@ -100,8 +80,18 @@ func _on_finalize_transaction() -> void:
 			
 			customers_manager.trigger_dialogue('item_sold')
 		_:
-			print('Nie ma logiki pod ten rodzaj wizyty')
+			print('on_finalize_transaction: Nie ma logiki dla tego wariantu')
 	
 	shop_counter.set_finalize_button_disabled(true)
-
 #endregion Transation
+
+#region Helpers
+func _find_all_matching_items() -> Array[Item]:
+	var matching_items: Array[Item]
+	for item in customer_visit.customer_data.items_to_buy:
+		var result: Item = shop_counter.find_item_by_id(item.id)
+		if result != null:
+			matching_items.append(result)
+	
+	return matching_items
+#endregion Helpers
