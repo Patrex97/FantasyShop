@@ -32,14 +32,15 @@ signal counter_updated
 func _update_counter_list() -> void:
 	counter_updated.emit()
 	
-	if not items.size():
+	var items_to_display: Array[Item] = customer_items if show_customer_items else items
+	
+	if items_to_display.is_empty():
 		counter_list.hide()
 		return
 	
 	for child in items_list.get_children():
 		child.queue_free()
 	
-	var items_to_display: Array[Item] = customer_items if show_customer_items else items
 	
 	for item in items_to_display:
 		var item_data: ItemData = item.item_data
@@ -153,6 +154,7 @@ func set_finalize_button_disabled(value: bool) -> void:
 func _on_finalize_button_pressed() -> void:
 	#TODO: Przerobić na generyczne rozwiązanie
 	finalize_transaction.emit()
+	
 #endregion Finalize Button
 
 #region helpers
