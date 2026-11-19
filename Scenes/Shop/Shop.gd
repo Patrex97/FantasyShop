@@ -29,6 +29,9 @@ func _on_customer_enter(data: CustomerVisit) -> void:
 
 func _on_visit_state_changed(p_visit_state: CustomersManager.VisitState) -> void:
 	visit_state = p_visit_state
+	
+	if visit_state == CustomersManager.VisitState.Finalized:
+		shop_counter.clear_customer_items()
 
 
 func _on_counter_updated() -> void:

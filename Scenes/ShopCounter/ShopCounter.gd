@@ -76,12 +76,11 @@ func add_to_counter(new_item: Item) -> void:
 	item_added.emit(new_item)
 
 
-func remove_from_counter(item_to_remove: Item) -> void:
-	if not items.has(item_to_remove):
+func remove_from_counter(p_item: Item) -> void:
+	if not items.has(p_item):
 		return
 	
-	items.erase(item_to_remove)
-	customer_items.erase(item_to_remove)
+	_remove_from_customer_items(p_item)
 	
 	_update_counter_list()
 
@@ -137,6 +136,14 @@ func items_sold() -> void:
 		customer_items.erase(item)
 	
 	_update_counter_list()
+
+
+func clear_customer_items() -> void:
+	for item in customer_items.duplicate():
+		_remove_from_customer_items(item)
+		item.queue_free()
+	
+	_update_counter_list()
 #endregion Sell
 
 
@@ -173,4 +180,9 @@ func find_item_by_id(id: StringName) -> Item:
 			return item
 	
 	return null
+
+
+func _remove_from_customer_items(p_item: Item) -> void:
+	customer_items.erase(p_item)
+	items.erase(p_item)
 #endregion helpers
