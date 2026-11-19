@@ -137,6 +137,14 @@ func items_sold() -> void:
 		customer_items.erase(item)
 	
 	_update_counter_list()
+
+
+func clear_customer_items() -> void:
+	for item in customer_items.duplicate():
+		customer_items.erase(item)
+		item.queue_free()
+	
+	_update_counter_list()
 #endregion Sell
 
 
