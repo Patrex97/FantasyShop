@@ -11,6 +11,7 @@ const ITEM = preload("uid://f36ovkjjshuc")
 
 var items: Array[Item]
 var customer_items: Array[Item]
+var show_customer_items: bool = false
 
 
 #region Drag&Drop
@@ -38,7 +39,7 @@ func _update_counter_list() -> void:
 	for child in items_list.get_children():
 		child.queue_free()
 	
-	var items_to_display: Array[Item] = customer_items if not customer_items.is_empty() else items
+	var items_to_display: Array[Item] = customer_items if show_customer_items else items
 	
 	for item in items_to_display:
 		var item_data: ItemData = item.item_data
@@ -95,6 +96,7 @@ func remove_items(items_to_remove: Array[Item]) -> void:
 func start_buy_transaction() -> void:
 	title_label.text = 'Kupuje' # Klient kupuje
 	finalize_button.text = 'Sprzedaj'
+	show_customer_items = false
 #endregion Buy
 
 
@@ -103,6 +105,7 @@ func start_sell_transaction(new_items: Array[ItemData]) -> void:
 	_spawn_items(new_items)
 	title_label.text = 'Sprzedaje' # Klient sprzedaje
 	finalize_button.text = "Kup"
+	show_customer_items = true
 
 
 func _spawn_items(items_data: Array[ItemData]) -> void:
@@ -125,7 +128,7 @@ func _spawn_items(items_data: Array[ItemData]) -> void:
 
 func items_sold() -> void:
 	var shop_items_manager: Control = get_tree().get_first_node_in_group('ItemsManager')
-	for item in customer_items:
+	for item in customer_items.duplicate():
 		item.reparent(shop_items_manager)
 		item.draggable = true
 		item.modulate.a = 1
