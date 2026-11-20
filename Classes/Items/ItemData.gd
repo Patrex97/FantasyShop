@@ -6,3 +6,4 @@ class_name ItemData
 @export_multiline var description: String
 @export var texture: Texture2D
 @export var base_value: int = 0
+@export var grid_size: Vector2i = Vector2i.ZERO

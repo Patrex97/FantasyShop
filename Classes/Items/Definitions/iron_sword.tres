@@ -10,4 +10,5 @@ name = "Żelany miecz"
 description = "To jest zwykły żelazny miecz"
 texture = ExtResource("2_dua3y")
 base_value = 20
+grid_size = Vector2i(8, 2)
 metadata/_custom_type_script = "uid://bea1gh0gc47ui"
