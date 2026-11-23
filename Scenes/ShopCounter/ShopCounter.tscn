@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dkcsqorqpaen1" path="res://Assets/Placeholders/pergamin.png" id="1_g36v6"]
 [ext_resource type="Script" uid="uid://c6hwgqrq66k6w" path="res://Scenes/ShopCounter/ShopCounter.gd" id="1_v1lln"]
 [ext_resource type="Texture2D" uid="uid://83mp3k4r0tm3" path="res://Assets/dialog-cloud.png" id="3_g36v6"]
+[ext_resource type="PackedScene" uid="uid://c7wbh6ew2f3tt" path="res://Scenes/InventoryGrid/InventoryGrid.tscn" id="4_v1lln"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8n6b6"]
 texture = ExtResource("3_g36v6")
@@ -70,5 +71,14 @@ unique_name_in_owner = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="InventoryGrid" parent="." unique_id=1412359904 instance=ExtResource("4_v1lln")]
+layout_mode = 1
+offset_left = 103.0
+offset_top = 24.0
+offset_right = -116.0
+offset_bottom = -23.0
+rows = 7
+cols = 20
 
 [connection signal="pressed" from="CounterList/VBoxContainer/FinalizeButton" to="." method="_on_finalize_button_pressed"]

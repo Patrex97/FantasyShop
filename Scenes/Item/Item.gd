@@ -69,6 +69,9 @@ func _drop(mouse_position: Vector2) -> void:
 	
 	_show_popover()
 	
+	if not shop_counter:
+		return
+	
 	if shop_counter.is_point_inside(mouse_position):
 		shop_counter.add_to_counter(self)
 	else:
