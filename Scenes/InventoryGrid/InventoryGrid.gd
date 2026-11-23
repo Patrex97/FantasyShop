@@ -15,6 +15,7 @@ var cells: Dictionary = {}
 func _ready() -> void:
 	size = Vector2(CELL_SIZE * cols, CELL_SIZE  * rows)
 
+
 func _draw() -> void:
 	for y in range(rows):
 		var row_pos: int = CELL_SIZE * y
@@ -32,7 +33,7 @@ func _is_cell_occupied(coords: Vector2i, ignored_item: Item = null) -> bool:
 	if ignored_item == null:
 		return true
 	
-	return not cells[coords].is_same(ignored_item)
+	return not cells[coords] == ignored_item
 
 
 func _is_inside_grid(item_placement: Dictionary) -> bool:
@@ -64,7 +65,7 @@ func _can_place_item(p_item: Item) -> bool:
 func _get_item_placement(p_item: Item) -> Dictionary:
 	var grid_shape: Array[Vector2i] = p_item.item_data.grid_shape
 	var item_local_pos: Vector2 = p_item.global_position - global_position
-	var item_coords: Vector2i = floor(item_local_pos / CELL_SIZE)
+	var item_coords: Vector2i = round(item_local_pos / CELL_SIZE)
 	
 	return { 'pos': item_local_pos, 'coords': item_coords, 'shape': grid_shape }
 
@@ -75,15 +76,15 @@ func _assign_item(p_item: Item) -> void:
 	for shape_coords in item_placement.shape:
 		cells[shape_coords + item_placement.coords] = p_item
 	
-	add_child(p_item)
+	p_item.reparent(self)
 	
-	p_item.position = item_placement.pos
+	p_item.position = item_placement.coords * CELL_SIZE
 	
 	queue_redraw()
 
 func _clear_item_cells(p_item: Item) -> void:
 	for coords in cells.keys():
-		if cells[coords].is_same(p_item):
+		if cells[coords] == p_item:
 			cells.erase(coords)
 	
 	queue_redraw()
@@ -96,7 +97,23 @@ func _drop(p_item: Item) -> void:
 	_clear_item_cells(p_item)
 	_assign_item(p_item)
 
+func _on_drag_ended(items: Array[Control]) -> void:
+	var mouse_position: Vector2 = get_global_mouse_position()
 
-func _drag_over(p_item: Item) -> void:
-	if _can_place_item(p_item):
-		print('Can drop')
+	if not get_global_rect().has_point(mouse_position):
+		return
+
+	for node in items:
+		if node is Item:
+			_drop(node)
+
+
+func _on_mouse_entered() -> void:
+	print('ENTERED')
+	if not DragDropManager.drag_ended.is_connected(_on_drag_ended):
+		DragDropManager.drag_ended.connect(_on_drag_ended)
+
+
+func _on_mouse_exited() -> void:
+	if DragDropManager.drag_ended.is_connected(_on_drag_ended):
+		DragDropManager.drag_ended.disconnect(_on_drag_ended)
