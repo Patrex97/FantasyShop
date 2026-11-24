@@ -13,7 +13,6 @@
 [ext_resource type="Resource" uid="uid://cpujp1iidc4jo" path="res://Classes/Customers/Definitions/peasant.tres" id="9_fqp3i"]
 [ext_resource type="PackedScene" uid="uid://lmladihd01m5" path="res://UI/Popovers/PopoverManager.tscn" id="12_6bbxv"]
 [ext_resource type="PackedScene" uid="uid://crem02kcm5p87" path="res://Scenes/ShopCounter/ShopCounter.tscn" id="13_61vnm"]
-[ext_resource type="PackedScene" uid="uid://c7wbh6ew2f3tt" path="res://Scenes/InventoryGrid/InventoryGrid.tscn" id="14_fawcw"]
 
 [node name="Shop" type="Control" unique_id=1434943476]
 layout_mode = 3
@@ -110,13 +109,5 @@ metadata/_custom_type_script = "uid://cd3222nx3y3k5"
 
 [node name="PopoverManager" parent="." unique_id=1634961796 instance=ExtResource("12_6bbxv")]
 layer = 100
-
-[node name="InventoryGrid" parent="." unique_id=1412359904 instance=ExtResource("14_fawcw")]
-layout_mode = 0
-offset_left = 243.0
-offset_top = 136.0
-offset_right = 243.0
-offset_bottom = 136.0
-rows = 6
 
 [connection signal="pressed" from="EndDayButton" to="." method="_on_end_day_button_pressed"]
