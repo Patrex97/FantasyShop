@@ -66,19 +66,14 @@ layout_mode = 2
 disabled = true
 text = "Sprzedaj"
 
-[node name="ItemsManager" type="Control" parent="." unique_id=1394260775]
-unique_name_in_owner = true
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="InventoryGrid" parent="." unique_id=1412359904 instance=ExtResource("4_v1lln")]
+unique_name_in_owner = true
 layout_mode = 1
 offset_left = 103.0
 offset_top = 24.0
 offset_right = -116.0
 offset_bottom = -23.0
 rows = 7
-cols = 20
+cols = 30
 
 [connection signal="pressed" from="CounterList/VBoxContainer/FinalizeButton" to="." method="_on_finalize_button_pressed"]
