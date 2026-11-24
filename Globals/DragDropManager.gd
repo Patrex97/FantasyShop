@@ -58,17 +58,21 @@ func drag_end() -> void:
 	
 	is_dragging = false
 	
-	drag_ended.emit(nodes)
+	var drag_ended_handled: bool = false
 	
-	var hovered_control: Control = get_viewport().gui_get_hovered_control()
+	for connection in drag_ended.get_connections():
+		if connection.callable.get_object() is InventoryGrid:
+			drag_ended_handled = true
+	
+	if drag_ended_handled:
+		drag_ended.emit(nodes)
+	else:
+		restore_positions()
 	
 	
 	for node in nodes:
 		if is_instance_valid(node):
 			node.mouse_filter = Control.MOUSE_FILTER_STOP
-	
-	if hovered_control is not InventoryGrid:
-		restore_positions()
 	
 	nodes.clear()
 	drag_offsets.clear()

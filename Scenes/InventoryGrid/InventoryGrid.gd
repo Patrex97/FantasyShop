@@ -107,7 +107,6 @@ func _assign_item(p_item: Item) -> void:
 	
 	p_item.reparent(self)
 	p_item.position = item_placement.coords * CELL_SIZE
-	p_item.last_pos = p_item.position
 	
 	queue_redraw()
 
