@@ -61,7 +61,8 @@ func drag_end() -> void:
 	drag_ended.emit(nodes)
 	
 	for node in nodes:
-		node.mouse_filter = Control.MOUSE_FILTER_STOP
+		if is_instance_valid(node):
+			node.mouse_filter = Control.MOUSE_FILTER_STOP
 	
 	nodes.clear()
 	drag_offsets.clear()
