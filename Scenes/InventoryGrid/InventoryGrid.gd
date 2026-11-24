@@ -13,11 +13,27 @@ const ITEM = preload("uid://f36ovkjjshuc")
 
 
 var cells: Dictionary = {}
+var hovered_cells: Dictionary = {}
+var is_inside: bool = false
 
 
 #region Lifecycle
 func _ready() -> void:
 	size = Vector2(CELL_SIZE * cols, CELL_SIZE * rows)
+
+func _process(_delta: float) -> void:
+	if not hovered_cells.is_empty():
+		hovered_cells.clear()
+		queue_redraw()
+	
+	if DragDropManager.is_dragging and is_inside:
+		for node in DragDropManager.nodes:
+			var item_placement: Dictionary = _get_item_placement(node)
+			for shape_coords in item_placement.shape:
+				var coords: Vector2i = item_placement.coords + shape_coords
+				hovered_cells[coords] = node
+		
+		queue_redraw()
 #endregion
 
 
@@ -28,8 +44,13 @@ func _draw() -> void:
 		
 		for x in range(cols):
 			var col_pos: int = CELL_SIZE * x
-			var cell_color: Color = Color("red") if _is_cell_occupied(Vector2i(x, y)) else Color("gray")
 			
+			var cell_color: Color = Color('gray')
+			if _is_cell_occupied(Vector2i(x, y)):
+				cell_color = Color("red") 
+			elif hovered_cells.has(Vector2i(x, y)):
+				cell_color = Color("Green")
+
 			draw_rect(Rect2i(col_pos, row_pos, CELL_SIZE, CELL_SIZE), cell_color, false)
 #endregion
 
@@ -131,14 +152,14 @@ func _on_drag_ended(items: Array[Control]) -> void:
 		if node is Item:
 			_drop(node)
 
-
 func _on_mouse_entered() -> void:
+	is_inside = true
 	if not DragDropManager.drag_ended.is_connected(_on_drag_ended):
 		DragDropManager.drag_ended.connect(_on_drag_ended)
 
 
 func _on_mouse_exited() -> void:
+	is_inside = false
 	if DragDropManager.drag_ended.is_connected(_on_drag_ended):
 		DragDropManager.drag_ended.disconnect(_on_drag_ended)
-
 #endregion
