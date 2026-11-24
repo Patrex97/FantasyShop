@@ -66,8 +66,9 @@ func drag_end() -> void:
 	for node in nodes:
 		if is_instance_valid(node):
 			node.mouse_filter = Control.MOUSE_FILTER_STOP
-			if hovered_control is not InventoryGrid and node is Item:
-				node.snap_back()
+	
+	if hovered_control is not InventoryGrid:
+		restore_positions()
 	
 	nodes.clear()
 	drag_offsets.clear()

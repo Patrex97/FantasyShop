@@ -76,7 +76,7 @@ func _is_cell_occupied(coords: Vector2i, ignored_item: Item = null) -> bool:
 #region Item Placement
 func _drop(p_item: Item) -> void:
 	if not _can_place_item(p_item):
-		p_item.snap_back()
+		DragDropManager.restore_positions()
 		return
 	
 	var item_parent: Node = p_item.get_parent()
