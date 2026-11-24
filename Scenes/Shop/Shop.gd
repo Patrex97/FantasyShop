@@ -14,9 +14,11 @@ func _ready() -> void:
 	shop_counter.item_added.connect(_on_item_added)
 	shop_counter.finalize_transaction.connect(_on_finalize_transaction)
 
+
 func _on_end_day_button_pressed() -> void:
 	GameManager.end_day()
 	end_day_button.hide()
+
 
 #region Transaction
 var visit_state: CustomersManager.VisitState = CustomersManager.VisitState.Idle

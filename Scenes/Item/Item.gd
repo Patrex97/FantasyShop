@@ -8,7 +8,6 @@ class_name Item
 var shop_counter: ShopCounter
 
 var draggable: bool = true
-var is_dragging: bool = false
 var mouse_click_offset: Vector2 = Vector2.ZERO
 
 
@@ -27,63 +26,34 @@ func setup(new_item_data: ItemData, p_draggable: bool = true) -> void:
 func _has_point(point: Vector2) -> bool:
 	var global_point: Vector2 = get_global_transform() * point
 	var local_point: Vector2 = interactive_texture.get_global_transform().affine_inverse() * global_point
-
+	
 	return interactive_texture.is_pixel_interactive(local_point)
 
 
-func _process(_delta: float) -> void:
-	if is_dragging:
-		_drag()
-
-
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				_start_drag(event.position)
-			else:
-				_drop(event.global_position)
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			_start_drag()
 
 
 #region Drag&Drop
-func _start_drag(clicked_pos: Vector2) -> void:
-	if not draggable: 
+func _start_drag() -> void:
+	if not draggable:
 		return
-	
-	is_dragging = true
-	mouse_click_offset = clicked_pos
-	move_to_front()
 	
 	PopoverManager.hide_popover()
-
-
-func _drag() -> void:
-	global_position = get_global_mouse_position() - mouse_click_offset
-
-
-func _drop(mouse_position: Vector2) -> void:
-	if not is_dragging:
-		return
-	
-	is_dragging = false
-	
-	_show_popover()
-	
-	if not shop_counter:
-		return
-	
-	if shop_counter.is_point_inside(mouse_position):
-		shop_counter.add_to_counter(self)
-	else:
-		shop_counter.remove_from_counter(self)
+	DragDropManager.drag_start([self])
 #endregion Drag&Drop
 
 #region Popover
 func _show_popover() -> void:
-	if is_dragging:
+	if DragDropManager.is_dragging:
 		return
 	
-	PopoverManager.show_popover(PopoverManager.PopoverType.Item, item_data)
+	PopoverManager.show_popover(
+		PopoverManager.PopoverType.Item,
+		item_data
+	)
 
 
 func _on_mouse_entered() -> void:

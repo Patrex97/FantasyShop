@@ -6,7 +6,7 @@ const ITEM = preload("uid://f36ovkjjshuc")
 
 
 @onready var counter_mc: MarginContainer = %CounterMC
-@onready var items_manager: Control = %ItemsManager
+@onready var inventory_grid: InventoryGrid = %InventoryGrid
 
 
 var items: Array[Item]
@@ -118,7 +118,8 @@ func _spawn_items(items_data: Array[ItemData]) -> void:
 		
 		new_item.position = Vector2(rect.size.x / 2, rect.size.y / 2)
 		
-		items_manager.add_child(new_item)
+		#TODO: trzeba dodać logikę spawnowania przedmiotów i umieszczania ich na siatce
+		inventory_grid.add_child(new_item)
 		
 		items.append(new_item)
 		customer_items.append(new_item)
@@ -127,9 +128,7 @@ func _spawn_items(items_data: Array[ItemData]) -> void:
 
 
 func items_sold() -> void:
-	var shop_items_manager: Control = get_tree().get_first_node_in_group('ItemsManager')
 	for item in customer_items.duplicate():
-		item.reparent(shop_items_manager)
 		item.draggable = true
 		item.modulate.a = 1
 		
