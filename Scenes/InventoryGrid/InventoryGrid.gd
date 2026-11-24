@@ -76,6 +76,7 @@ func _is_cell_occupied(coords: Vector2i, ignored_item: Item = null) -> bool:
 #region Item Placement
 func _drop(p_item: Item) -> void:
 	if not _can_place_item(p_item):
+		p_item.snap_back()
 		return
 	
 	var item_parent: Node = p_item.get_parent()
@@ -106,6 +107,7 @@ func _assign_item(p_item: Item) -> void:
 	
 	p_item.reparent(self)
 	p_item.position = item_placement.coords * CELL_SIZE
+	p_item.last_pos = p_item.position
 	
 	queue_redraw()
 

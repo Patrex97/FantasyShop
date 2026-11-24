@@ -9,6 +9,7 @@ var shop_counter: ShopCounter
 
 var draggable: bool = true
 var mouse_click_offset: Vector2 = Vector2.ZERO
+var last_pos: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
@@ -43,6 +44,14 @@ func _start_drag() -> void:
 	
 	PopoverManager.hide_popover()
 	DragDropManager.drag_start([self])
+
+
+func snap_back() -> void:
+	var parent: Node = get_parent()
+	if parent is not InventoryGrid:
+		return
+		
+	position = last_pos
 #endregion Drag&Drop
 
 #region Popover
