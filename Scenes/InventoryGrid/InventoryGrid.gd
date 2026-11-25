@@ -37,7 +37,7 @@ func _process(_delta: float) -> void:
 			
 			if not is_hover_conflict:
 				for h_coords in hovered_cells.keys():
-					if _is_cell_occupied(h_coords, node):
+					if _is_cell_occupied(h_coords, node) or not _is_cell_inside_grid(h_coords):
 						is_hover_conflict = true
 						break;
 				
@@ -93,12 +93,17 @@ func _is_inside_grid(item_placement: Dictionary) -> bool:
 	for shape_coords in item_placement.shape:
 		var coords: Vector2i = item_placement.coords + shape_coords
 		
-		if coords.x < 0 or coords.x >= cols or \
-			coords.y < 0 or coords.y >= rows:
+		if not _is_cell_inside_grid(coords):
 			return false
 	
 	return true
 
+func _is_cell_inside_grid(coords: Vector2i) -> bool:
+	if coords.x < 0 or coords.x >= cols or \
+		coords.y < 0 or coords.y >= rows:
+			return false
+	
+	return true
 
 func _is_cell_occupied(coords: Vector2i, ignored_item: Item = null) -> bool:
 	if not cells.has(coords):
@@ -169,6 +174,7 @@ func _on_drag_ended(items: Array[Control]) -> void:
 		if node is Item:
 			_drop(node)
 
+
 func _on_mouse_entered() -> void:
 	is_inside = true
 	if not DragDropManager.drag_ended.is_connected(_on_drag_ended):
@@ -176,7 +182,6 @@ func _on_mouse_entered() -> void:
 
 
 func _on_mouse_exited() -> void:
-	is_inside = false
 	if DragDropManager.drag_ended.is_connected(_on_drag_ended):
 		DragDropManager.drag_ended.disconnect(_on_drag_ended)
 #endregion
