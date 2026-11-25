@@ -22,13 +22,20 @@ func _ready() -> void:
 	size = Vector2(CELL_SIZE * cols, CELL_SIZE * rows)
 
 func _process(_delta: float) -> void:
+	var old_hovered_cells: Dictionary = {}
 	if not hovered_cells.is_empty():
 		is_hover_conflict = false
+		old_hovered_cells = hovered_cells.duplicate()
 		hovered_cells.clear()
 		queue_redraw()
 	
 	if DragDropManager.is_dragging:
 		for node in DragDropManager.nodes:
+			if not get_global_rect().intersects(node.get_global_rect()):
+				continue
+			if node is not Item:
+				continue
+			
 			var item_placement: Dictionary = _get_item_placement(node)
 			for shape_coords in item_placement.shape:
 				var coords: Vector2i = item_placement.coords + shape_coords
@@ -39,8 +46,9 @@ func _process(_delta: float) -> void:
 					if _is_cell_occupied(h_coords, node) or not _is_cell_inside_grid(h_coords):
 						is_hover_conflict = true
 						break;
-				
-		queue_redraw()
+		
+		if hovered_cells != old_hovered_cells:
+			queue_redraw()
 #endregion
 
 
