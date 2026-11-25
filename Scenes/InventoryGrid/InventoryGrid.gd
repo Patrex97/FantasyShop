@@ -15,7 +15,6 @@ const ITEM = preload("uid://f36ovkjjshuc")
 var cells: Dictionary = {}
 var hovered_cells: Dictionary = {}
 var is_hover_conflict: bool = false
-var is_inside: bool = false
 
 
 #region Lifecycle
@@ -28,7 +27,7 @@ func _process(_delta: float) -> void:
 		hovered_cells.clear()
 		queue_redraw()
 	
-	if DragDropManager.is_dragging and is_inside:
+	if DragDropManager.is_dragging:
 		for node in DragDropManager.nodes:
 			var item_placement: Dictionary = _get_item_placement(node)
 			for shape_coords in item_placement.shape:
@@ -176,7 +175,6 @@ func _on_drag_ended(items: Array[Control]) -> void:
 
 
 func _on_mouse_entered() -> void:
-	is_inside = true
 	if not DragDropManager.drag_ended.is_connected(_on_drag_ended):
 		DragDropManager.drag_ended.connect(_on_drag_ended)
 
