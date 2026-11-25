@@ -72,7 +72,7 @@ func drag_end() -> void:
 	
 	for node in nodes:
 		if is_instance_valid(node):
-			node.mouse_filter = Control.MOUSE_FILTER_STOP
+			node.mouse_filter = Control.MOUSE_FILTER_PASS
 	
 	nodes.clear()
 	drag_offsets.clear()

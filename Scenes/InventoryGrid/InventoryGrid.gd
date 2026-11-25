@@ -7,13 +7,14 @@ const CELL_SIZE: int = 16
 const IRON_SWORD = preload("uid://cguoffsyid1d7")
 const ITEM = preload("uid://f36ovkjjshuc")
 
-
+@export var debug: bool = true
 @export_range(1, 100) var rows: int = 10
 @export_range(1, 100) var cols: int = 10
 
 
 var cells: Dictionary = {}
 var hovered_cells: Dictionary = {}
+var is_hover_conflict: bool = false
 var is_inside: bool = false
 
 
@@ -23,6 +24,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if not hovered_cells.is_empty():
+		is_hover_conflict = false
 		hovered_cells.clear()
 		queue_redraw()
 	
@@ -32,7 +34,13 @@ func _process(_delta: float) -> void:
 			for shape_coords in item_placement.shape:
 				var coords: Vector2i = item_placement.coords + shape_coords
 				hovered_cells[coords] = node
-		
+			
+			if not is_hover_conflict:
+				for h_coords in hovered_cells.keys():
+					if _is_cell_occupied(h_coords, node):
+						is_hover_conflict = true
+						break;
+				
 		queue_redraw()
 #endregion
 
@@ -45,13 +53,22 @@ func _draw() -> void:
 		for x in range(cols):
 			var col_pos: int = CELL_SIZE * x
 			
-			var cell_color: Color = Color('gray')
-			if _is_cell_occupied(Vector2i(x, y)):
-				cell_color = Color("red") 
-			elif hovered_cells.has(Vector2i(x, y)):
-				cell_color = Color("Green")
+			var cell_sizes: Rect2i = Rect2i(col_pos, row_pos, CELL_SIZE, CELL_SIZE)
+			var cell_color: Color = _get_cell_color(Vector2i(x, y))
+			var is_cell_filled: bool = cell_color != Color("6d6d6dff")
+			
+			draw_rect(cell_sizes, cell_color, is_cell_filled)
 
-			draw_rect(Rect2i(col_pos, row_pos, CELL_SIZE, CELL_SIZE), cell_color, false)
+
+func _get_cell_color(coords: Vector2i) -> Color:
+	var cell_color: Color = Color("6d6d6dff")
+	if hovered_cells.has(coords):
+		cell_color = Color(Color("red"), 0.3) if is_hover_conflict else Color(Color('green'), 0.3) 
+	elif debug and _is_cell_occupied(coords):
+		cell_color = Color("blue") 
+	
+	return cell_color
+
 #endregion
 
 
