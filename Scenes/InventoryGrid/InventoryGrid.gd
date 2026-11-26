@@ -81,9 +81,7 @@ func _get_cell_color(coords: Vector2i) -> Color:
 
 
 #region Grid Validation
-func _can_place_item(p_item: Item) -> bool:
-	var item_placement = _get_item_placement(p_item)
-	
+func _can_place_item(p_item: Item, item_placement: Dictionary) -> bool:
 	if item_placement.shape.is_empty():
 		return false
 	
@@ -126,16 +124,46 @@ func _is_cell_occupied(coords: Vector2i, ignored_item: Item = null) -> bool:
 
 #region Item Placement
 func _drop(p_item: Item) -> void:
-	if not _can_place_item(p_item):
+	var item_placement = _get_item_placement(p_item)
+	
+	if not _can_place_item(p_item, item_placement):
 		DragDropManager.restore_positions()
 		return
 	
-	var item_parent: Node = p_item.get_parent()
 	
-	if item_parent is InventoryGrid:
-		item_parent.clear_item_cells(p_item)
-		
-	_assign_item(p_item)
+	_assign_item(p_item, item_placement)
+
+
+func add_item(p_item: Item) -> bool:
+	var item_placement: Dictionary = {
+		'coords': Vector2i.ZERO,
+		'shape': p_item.item_data.grid_shape
+	}
+	
+	item_placement['coords'] = _find_available_position(p_item, item_placement['shape'])
+
+	if item_placement['coords'] == Vector2i(-1, -1):
+		return false
+
+	_assign_item(p_item, item_placement)
+
+	return true
+
+
+func _find_available_position(p_item: Item, item_shape: Array[Vector2i]) -> Vector2i:
+	var item_placement: Dictionary = {
+		"coords": Vector2i.ZERO,
+		"shape": item_shape
+	}
+
+	for y in range(rows):
+		for x in range(cols):
+			item_placement.coords = Vector2i(x, y)
+
+			if _can_place_item(p_item, item_placement):
+				return item_placement.coords
+
+	return Vector2i(-1, -1)
 
 
 func _get_item_placement(p_item: Item) -> Dictionary:
@@ -150,13 +178,20 @@ func _get_item_placement(p_item: Item) -> Dictionary:
 	}
 
 
-func _assign_item(p_item: Item) -> void:
-	var item_placement = _get_item_placement(p_item)
+func _assign_item(p_item: Item, item_placement: Dictionary) -> void:
+	var item_parent: Node = p_item.get_parent()
+	
+	if item_parent is InventoryGrid:
+		item_parent.clear_item_cells(p_item)
 	
 	for shape_coords in item_placement.shape:
 		cells[shape_coords + item_placement.coords] = p_item
 	
-	p_item.reparent(self)
+	if item_parent == null:
+		add_child(p_item)
+	elif item_parent != self:
+		p_item.reparent(self)
+	
 	p_item.position = item_placement.coords * CELL_SIZE
 	
 	queue_redraw()
