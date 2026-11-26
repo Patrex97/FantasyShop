@@ -6,6 +6,7 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_x6bif")
+debug = false
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

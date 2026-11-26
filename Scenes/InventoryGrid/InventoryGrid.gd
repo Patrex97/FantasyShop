@@ -7,17 +7,49 @@ const CELL_SIZE: int = 16
 const IRON_SWORD = preload("uid://cguoffsyid1d7")
 const ITEM = preload("uid://f36ovkjjshuc")
 
-
+@export var debug: bool = true
 @export_range(1, 100) var rows: int = 10
 @export_range(1, 100) var cols: int = 10
 
 
 var cells: Dictionary = {}
+var hovered_cells: Dictionary = {}
+var is_hover_conflict: bool = false
 
 
 #region Lifecycle
 func _ready() -> void:
 	size = Vector2(CELL_SIZE * cols, CELL_SIZE * rows)
+
+func _process(_delta: float) -> void:
+	var old_hovered_cells: Dictionary = {}
+	var old_is_hover_conflict: bool = is_hover_conflict
+	if not hovered_cells.is_empty():
+		is_hover_conflict = false
+		old_hovered_cells = hovered_cells.duplicate()
+		hovered_cells.clear() 
+	
+	if DragDropManager.is_dragging:
+		for node in DragDropManager.nodes:
+			if not get_global_rect().intersects(node.get_global_rect()):
+				continue
+			if node is not Item:
+				continue
+			
+			var item_placement: Dictionary = _get_item_placement(node)
+			for shape_coords in item_placement.shape:
+				var coords: Vector2i = item_placement.coords + shape_coords
+				hovered_cells[coords] = node
+			
+			if not is_hover_conflict:
+				for h_coords in hovered_cells.keys():
+					if _is_cell_occupied(h_coords, node) or not _is_cell_inside_grid(h_coords):
+						is_hover_conflict = true
+						break;
+		
+	if hovered_cells != old_hovered_cells or \
+		old_is_hover_conflict != is_hover_conflict:
+			queue_redraw()
 #endregion
 
 
@@ -28,9 +60,23 @@ func _draw() -> void:
 		
 		for x in range(cols):
 			var col_pos: int = CELL_SIZE * x
-			var cell_color: Color = Color("red") if _is_cell_occupied(Vector2i(x, y)) else Color("gray")
 			
-			draw_rect(Rect2i(col_pos, row_pos, CELL_SIZE, CELL_SIZE), cell_color, false)
+			var cell_sizes: Rect2i = Rect2i(col_pos, row_pos, CELL_SIZE, CELL_SIZE)
+			var cell_color: Color = _get_cell_color(Vector2i(x, y))
+			var is_cell_filled: bool = cell_color != Color("6d6d6dff")
+			
+			draw_rect(cell_sizes, cell_color, is_cell_filled)
+
+
+func _get_cell_color(coords: Vector2i) -> Color:
+	var cell_color: Color = Color("6d6d6dff")
+	if hovered_cells.has(coords):
+		cell_color = Color(Color("red"), 0.3) if is_hover_conflict else Color(Color('green'), 0.3) 
+	elif debug and _is_cell_occupied(coords):
+		cell_color = Color("blue") 
+	
+	return cell_color
+
 #endregion
 
 
@@ -55,12 +101,17 @@ func _is_inside_grid(item_placement: Dictionary) -> bool:
 	for shape_coords in item_placement.shape:
 		var coords: Vector2i = item_placement.coords + shape_coords
 		
-		if coords.x < 0 or coords.x >= cols or \
-			coords.y < 0 or coords.y >= rows:
+		if not _is_cell_inside_grid(coords):
 			return false
 	
 	return true
 
+func _is_cell_inside_grid(coords: Vector2i) -> bool:
+	if coords.x < 0 or coords.x >= cols or \
+		coords.y < 0 or coords.y >= rows:
+			return false
+	
+	return true
 
 func _is_cell_occupied(coords: Vector2i, ignored_item: Item = null) -> bool:
 	if not cells.has(coords):
@@ -140,5 +191,4 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	if DragDropManager.drag_ended.is_connected(_on_drag_ended):
 		DragDropManager.drag_ended.disconnect(_on_drag_ended)
-
 #endregion
