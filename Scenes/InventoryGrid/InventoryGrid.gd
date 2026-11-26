@@ -151,6 +151,12 @@ func add_item(p_item: Item) -> bool:
 	return true
 
 
+func remove_item(p_item: Item) -> bool:
+	clear_item_cells(p_item)
+	p_item.queue_free()
+	
+	return true
+
 func _find_available_position(p_item: Item, item_shape: Array[Vector2i]) -> Vector2i:
 	var item_placement: Dictionary = {
 		"coords": Vector2i.ZERO,

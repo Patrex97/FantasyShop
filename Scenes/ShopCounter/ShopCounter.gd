@@ -141,7 +141,7 @@ func items_sold() -> void:
 func clear_customer_items() -> void:
 	for item in customer_items.duplicate():
 		_remove_from_customer_items(item)
-		item.queue_free()
+		inventory_grid.remove_item(item)
 	
 	_update_counter_list()
 #endregion Sell
