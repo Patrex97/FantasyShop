@@ -152,6 +152,9 @@ func add_item(p_item: Item) -> bool:
 
 
 func remove_item(p_item: Item) -> bool:
+	if p_item.get_parent() != self:
+		return false
+	
 	clear_item_cells(p_item)
 	p_item.queue_free()
 	
