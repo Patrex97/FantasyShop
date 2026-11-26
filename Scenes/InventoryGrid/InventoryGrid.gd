@@ -134,6 +134,7 @@ func _drop(p_item: Item) -> void:
 	_assign_item(p_item, item_placement)
 
 
+#Used for programically add item into first empty slot (e.g. Customer items when visit starts)
 func add_item(p_item: Item) -> bool:
 	var item_placement: Dictionary = {
 		'coords': Vector2i.ZERO,

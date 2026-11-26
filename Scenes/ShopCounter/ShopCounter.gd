@@ -118,8 +118,7 @@ func _spawn_items(items_data: Array[ItemData]) -> void:
 		
 		new_item.position = Vector2(rect.size.x / 2, rect.size.y / 2)
 		
-		#TODO: trzeba dodać logikę spawnowania przedmiotów i umieszczania ich na siatce
-		inventory_grid.add_child(new_item)
+		inventory_grid.add_item(new_item)
 		
 		items.append(new_item)
 		customer_items.append(new_item)
