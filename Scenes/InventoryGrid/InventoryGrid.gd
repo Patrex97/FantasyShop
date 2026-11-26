@@ -23,11 +23,11 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	var old_hovered_cells: Dictionary = {}
+	var old_is_hover_conflict: bool = is_hover_conflict
 	if not hovered_cells.is_empty():
 		is_hover_conflict = false
 		old_hovered_cells = hovered_cells.duplicate()
-		hovered_cells.clear()
-		queue_redraw()
+		hovered_cells.clear() 
 	
 	if DragDropManager.is_dragging:
 		for node in DragDropManager.nodes:
@@ -47,7 +47,8 @@ func _process(_delta: float) -> void:
 						is_hover_conflict = true
 						break;
 		
-		if hovered_cells != old_hovered_cells:
+	if hovered_cells != old_hovered_cells or \
+		old_is_hover_conflict != is_hover_conflict:
 			queue_redraw()
 #endregion
 
