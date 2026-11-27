@@ -19,7 +19,7 @@ var is_hover_conflict: bool = false
 
 #region Lifecycle
 func _ready() -> void:
-	size = Vector2(CELL_SIZE * cols, CELL_SIZE * rows)
+	custom_minimum_size = Vector2(CELL_SIZE * cols, CELL_SIZE * rows)
 
 func _process(_delta: float) -> void:
 	var old_hovered_cells: Dictionary = {}
@@ -56,16 +56,22 @@ func _process(_delta: float) -> void:
 #region Drawing
 func _draw() -> void:
 	for y in range(rows):
-		var row_pos: int = CELL_SIZE * y
-		
 		for x in range(cols):
-			var col_pos: int = CELL_SIZE * x
-			
-			var cell_sizes: Rect2i = Rect2i(col_pos, row_pos, CELL_SIZE, CELL_SIZE)
 			var cell_color: Color = _get_cell_color(Vector2i(x, y))
-			var is_cell_filled: bool = cell_color != Color("6d6d6dff")
+		
+			if cell_color == Color("6d6d6dff"):
+				continue
+		
+			var cell_rect: Rect2i = Rect2i(
+				x * CELL_SIZE,
+				y * CELL_SIZE,
+				CELL_SIZE,
+				CELL_SIZE
+			)
 			
-			draw_rect(cell_sizes, cell_color, is_cell_filled)
+			draw_rect(cell_rect, cell_color, true)
+	
+	_draw_grid()
 
 
 func _get_cell_color(coords: Vector2i) -> Color:
@@ -77,6 +83,31 @@ func _get_cell_color(coords: Vector2i) -> Color:
 	
 	return cell_color
 
+
+func _draw_grid() -> void:
+	var grid_color: Color = Color("abababff")
+	var grid_width: int = cols * CELL_SIZE
+	var grid_height: int = rows * CELL_SIZE
+
+	for x in range(cols + 1):
+		var x_pos: int = x * CELL_SIZE
+
+		draw_line(
+			Vector2(x_pos, 0),
+			Vector2(x_pos, grid_height),
+			grid_color,
+			-1.0
+		)
+
+	for y in range(rows + 1):
+		var y_pos: int = y * CELL_SIZE
+
+		draw_line(
+			Vector2(0, y_pos),
+			Vector2(grid_width, y_pos),
+			grid_color,
+			-1.0
+		)
 #endregion
 
 

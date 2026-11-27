@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bor1t0cgc2a0k"]
+
+[ext_resource type="Texture2D" uid="uid://c1r6nqbcn353" path="res://Assets/FantasyShop - Chest.png" id="1_7mfv0"]
+[ext_resource type="Script" uid="uid://cpat72a7jh2ae" path="res://Scenes/Chest/Chest.gd" id="2_7cvx5"]
+[ext_resource type="PackedScene" uid="uid://c7wbh6ew2f3tt" path="res://Scenes/InventoryGrid/InventoryGrid.tscn" id="2_s6wft"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w0kob"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = ExtResource("1_7mfv0")
+texture_margin_left = 5.0
+texture_margin_top = 6.0
+texture_margin_right = 5.0
+texture_margin_bottom = 6.0
+
+[node name="Chest" type="PanelContainer" unique_id=281309352]
+custom_minimum_size = Vector2(40, 40)
+offset_right = 10.0
+offset_bottom = 12.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_w0kob")
+script = ExtResource("2_7cvx5")
+
+[node name="InventoryGrid" parent="." unique_id=1412359904 instance=ExtResource("2_s6wft")]
+layout_mode = 2
+rows = 8
+cols = 8
