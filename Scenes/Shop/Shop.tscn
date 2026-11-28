@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://c4a71a0oh0bin" path="res://Classes/Customers/CustomerData.gd" id="8_fawcw"]
 [ext_resource type="Resource" uid="uid://cpujp1iidc4jo" path="res://Classes/Customers/Definitions/peasant.tres" id="9_fqp3i"]
 [ext_resource type="PackedScene" uid="uid://lmladihd01m5" path="res://UI/Popovers/PopoverManager.tscn" id="12_6bbxv"]
-[ext_resource type="PackedScene" uid="uid://bor1t0cgc2a0k" path="res://Scenes/Chest/Chest.tscn" id="12_61vnm"]
+[ext_resource type="Script" uid="uid://bqxxdlgwofd60" path="res://Scenes/Shop/ChestManager.gd" id="12_fawcw"]
 [ext_resource type="PackedScene" uid="uid://crem02kcm5p87" path="res://Scenes/ShopCounter/ShopCounter.tscn" id="13_61vnm"]
 
 [node name="Shop" type="Control" unique_id=1434943476]
@@ -25,6 +25,9 @@ script = ExtResource("1_w8s0t")
 [node name="UI" type="CanvasLayer" parent="." unique_id=1042919860]
 
 [node name="UI" parent="UI" unique_id=663916986 instance=ExtResource("1_o8wgc")]
+
+[node name="PopoverManager" parent="." unique_id=1634961796 instance=ExtResource("12_6bbxv")]
+layer = 100
 
 [node name="BackgroundTR" type="TextureRect" parent="." unique_id=2028036493]
 layout_mode = 1
@@ -72,6 +75,13 @@ offset_bottom = 517.0
 theme = ExtResource("7_d2lwj")
 text = "Zakończ dzień"
 
+[node name="ChestManager" type="Control" parent="." unique_id=1792356316]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("12_fawcw")
+
 [node name="CustomersDialogueStateContext" type="Node" parent="." unique_id=853756975 node_paths=PackedStringArray("target")]
 script = ExtResource("8_d2lwj")
 alias = "Customers"
@@ -83,15 +93,5 @@ script = ExtResource("8_d2lwj")
 alias = "Shop"
 target = NodePath("..")
 metadata/_custom_type_script = "uid://cd3222nx3y3k5"
-
-[node name="PopoverManager" parent="." unique_id=1634961796 instance=ExtResource("12_6bbxv")]
-layer = 100
-
-[node name="Chest" parent="." unique_id=281309352 instance=ExtResource("12_61vnm")]
-layout_mode = 0
-offset_left = 69.0
-offset_top = 198.0
-offset_right = 109.0
-offset_bottom = 238.0
 
 [connection signal="pressed" from="EndDayButton" to="." method="_on_end_day_button_pressed"]

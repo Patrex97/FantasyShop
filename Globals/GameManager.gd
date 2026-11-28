@@ -41,3 +41,8 @@ func emit_player_balance() -> void:
 	balance_changed.emit(player_balance)
 
 #endregion Money
+
+
+#region Chests
+var player_chest_count: int = 6
+#endregion Chests

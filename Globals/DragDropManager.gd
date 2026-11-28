@@ -47,6 +47,7 @@ func drag_start(p_nodes: Array[Control]) -> void:
 		drag_offsets[node] = mouse_position - node.global_position
 		node.move_to_front()
 		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		node.z_index = 100
 	
 	is_dragging = true
 	drag_started.emit()
@@ -73,6 +74,7 @@ func drag_end() -> void:
 	for node in nodes:
 		if is_instance_valid(node):
 			node.mouse_filter = Control.MOUSE_FILTER_PASS
+			node.z_index = 0
 	
 	nodes.clear()
 	drag_offsets.clear()
